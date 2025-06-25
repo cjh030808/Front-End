@@ -64,6 +64,7 @@ class LeaderboardPage extends StatelessWidget {
                     ],
                   ),
                 ),
+                // todo: 실제 데이터 연결하면서 View 위젯 수정해야할 듯 
                 Expanded(
                   child: TabBarView(children: [RankingView(),RankingView()]),
                 ),
