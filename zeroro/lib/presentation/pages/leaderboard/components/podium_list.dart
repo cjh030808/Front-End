@@ -33,7 +33,7 @@ class _PodiumListState extends State<PodiumList> with TickerProviderStateMixin {
     _thirdPlaceAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _animationController,
-        curve: const Interval(0.0, 0.3, curve: Curves.elasticOut),
+        curve: const Interval(0.1, 0.4, curve: Curves.elasticOut),
       ),
     );
 
@@ -41,7 +41,7 @@ class _PodiumListState extends State<PodiumList> with TickerProviderStateMixin {
     _secondPlaceAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _animationController,
-        curve: const Interval(0.3, 0.6, curve: Curves.elasticOut),
+        curve: const Interval(0.4, 0.7, curve: Curves.elasticOut),
       ),
     );
 
@@ -49,7 +49,7 @@ class _PodiumListState extends State<PodiumList> with TickerProviderStateMixin {
     _firstPlaceAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _animationController,
-        curve: const Interval(0.6, 1.0, curve: Curves.elasticOut),
+        curve: const Interval(0.7, 1.0, curve: Curves.elasticOut),
       ),
     );
 
