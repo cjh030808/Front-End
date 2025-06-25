@@ -37,6 +37,7 @@ dependencies:
   go_router: ^15.2.3
 
   #UI
+  carousel_slider: ^5.1.1
 
   #architecture
   flutter_bloc: ^9.1.1
