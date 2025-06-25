@@ -14,17 +14,7 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => BottomNavCubit(),
-      child: const MainScreenView(),
-    );
-  }
-}
-
-class MainScreenView extends StatelessWidget {
-  const MainScreenView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+      child: Scaffold(
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -46,12 +36,13 @@ class MainScreenView extends StatelessWidget {
           ),
         ],
       ),
+    ),
     );
   }
 }
 
 class _BottomNavigationBar extends StatelessWidget {
-  const _BottomNavigationBar({super.key});
+  const _BottomNavigationBar();
 
   @override
   Widget build(BuildContext context) {
@@ -61,13 +52,15 @@ class _BottomNavigationBar extends StatelessWidget {
         builder: (_, state) {
           return Container(
             decoration: BoxDecoration(
-              color: const Color.fromARGB(
-                193,
-                120,
-                120,
-                120,
-              ).withValues(alpha: 0.4),
+              color: Colors.white,
               borderRadius: BorderRadius.circular(50),
+              boxShadow: [
+                BoxShadow(
+            color: Colors.black.withValues(alpha: 0.2),
+            offset: const Offset(10, 8),
+            blurRadius: 4,
+          ),
+              ]
             ),
             clipBehavior: Clip.antiAlias,
             child: BottomNavigationBar(

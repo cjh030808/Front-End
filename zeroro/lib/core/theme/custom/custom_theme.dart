@@ -119,6 +119,7 @@ class CustomTheme {
     onError: AppColors.onError,
     surface: AppColors.white,
     onSurface: AppColors.black,
+    primaryContainer: AppColors.primaryContainer,
   );
 }
 

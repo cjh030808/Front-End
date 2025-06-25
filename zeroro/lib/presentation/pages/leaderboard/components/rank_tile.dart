@@ -5,15 +5,14 @@ class MyRankTile extends StatelessWidget {
   final String name;
   final int score;
 
-  const MyRankTile({required this.rank, required this.name, required this.score});
+  const MyRankTile({super.key, required this.rank, required this.name, required this.score});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 16),
       decoration: BoxDecoration(
         color: Colors.amber[100],
-        borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -31,7 +30,7 @@ class RankTile extends StatelessWidget {
   final String name;
   final int score;
 
-  const RankTile({required this.rank, required this.name, required this.score});
+  const RankTile({super.key, required this.rank, required this.name, required this.score});
 
   @override
   Widget build(BuildContext context) {
