@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-enum BottomNav {home, profile, leaderboard, community}
+enum BottomNav {home, community, leaderboard, profile}
 
 class BottomNavCubit extends Cubit<BottomNav> {
   BottomNavCubit() : super(BottomNav.home);
@@ -10,7 +10,6 @@ class BottomNavCubit extends Cubit<BottomNav> {
 }
 
 extension BottomNavX on BottomNav {
-  //todo: icon 에셋 추가 시, 수정 필요함
   Icon get icon => switch (this) {
     BottomNav.home => const Icon(Icons.home),
     BottomNav.profile => const Icon(Icons.person),

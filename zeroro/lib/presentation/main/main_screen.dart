@@ -5,7 +5,7 @@ import '../pages/community/community_page.dart';
 import '../pages/home/home_page.dart';
 import '../pages/leaderboard/leaderboard_page.dart';
 import '../pages/profile/profile_page.dart';
-import 'cubit/bottom_nav_bloc.dart';
+import 'cubit/bottom_nav_cubit.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});

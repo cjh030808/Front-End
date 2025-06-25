@@ -76,21 +76,18 @@ class _PodiumListState extends State<PodiumList> with TickerProviderStateMixin {
         builder: (context, child) {
           return Row(
             children: [
-              // 3등 (첫 번째로 나타남)
               _buildAnimatedPodiumItem(
                 user: widget.top3[2],
                 topMargin: 60 * heightRatio,
                 animation: _thirdPlaceAnimation,
                 profileSize: profileSize,
               ),
-              // 1등 (세 번째로 나타남)
               _buildAnimatedPodiumItem(
                 user: widget.top3[0],
                 topMargin: 40 * heightRatio,
                 animation: _firstPlaceAnimation,
                 profileSize: profileSize,
               ),
-              // 2등 (두 번째로 나타남)
               _buildAnimatedPodiumItem(
                 user: widget.top3[1],
                 topMargin: 50 * heightRatio,

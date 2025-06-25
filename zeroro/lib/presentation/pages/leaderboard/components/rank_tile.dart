@@ -38,7 +38,6 @@ class RankTile extends StatelessWidget {
       leading: Text('$rank위'),
       title: Row(
         children: [
-          //  프로필 자리는 추후 구현될 ProfileWidget으로 대체 예정
           const CircleAvatar(radius: 14, backgroundColor: Colors.grey),
           const SizedBox(width: 8),
           Text(name),

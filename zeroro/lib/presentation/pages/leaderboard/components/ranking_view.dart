@@ -4,7 +4,7 @@ import 'rank_tile.dart';
 import 'podium_list.dart';
 import '../user_model.dart';
 
-//todo: 유저 리스트는 bloc로 주입받아서 사용하도록 변경할 것 
+//TODO: 유저 리스트는 bloc로 주입받아서 사용하도록 변경할 것 
 class RankingView extends StatefulWidget {
   const RankingView({super.key});
   

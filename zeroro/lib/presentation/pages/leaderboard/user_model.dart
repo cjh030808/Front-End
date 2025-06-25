@@ -1,4 +1,4 @@
-// todo: Domain Layer 구현 시, Freezed 클래스로 바꿀 것
+// TODO: Domain Layer 구현 시, Freezed 클래스로 바꿀 것
 // Mock Data class
 class User {
   final String name;
