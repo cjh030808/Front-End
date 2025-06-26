@@ -1,9 +1,10 @@
 import 'package:go_router/go_router.dart';
-import 'package:zeroro/presentation/main/main_screen.dart';
+import 'package:zeroro/presentation/screens/main/main_screen.dart';
 import 'package:zeroro/presentation/routes/route_path.dart';
 
-import '../entry/login_screen.dart';
-import '../entry/splash_screen.dart';
+import '../screens/entry/login_screen.dart';
+import '../screens/entry/splash_screen.dart';
+import '../screens/post/new_post_screen.dart';
 
 final GoRouter router = GoRouter(
   routes: [
@@ -21,6 +22,11 @@ final GoRouter router = GoRouter(
       path: RoutePath.login,
       name: 'login',
       builder: (context, state) => LoginScreen(),
+    ),
+    GoRoute(
+      path: RoutePath.newPost,
+      name: 'newPost',
+      builder: (context, state) => NewPostScreen(),
     ),
   ],
   

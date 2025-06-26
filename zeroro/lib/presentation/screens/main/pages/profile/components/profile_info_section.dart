@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zeroro/core/constants.dart';
-import '../../../../core/theme/constant/app_color.dart';
+import '../../../../../../core/theme/constant/app_color.dart';
 
 class ProfileInfoSection extends StatelessWidget {
   const ProfileInfoSection({super.key});

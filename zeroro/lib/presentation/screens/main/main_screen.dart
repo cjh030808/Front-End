@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../pages/community/community_page.dart';
-import '../pages/home/home_page.dart';
-import '../pages/leaderboard/leaderboard_page.dart';
-import '../pages/profile/profile_page.dart';
+import 'pages/community/community_page.dart';
+import 'pages/home/home_page.dart';
+import 'pages/leaderboard/leaderboard_page.dart';
+import 'pages/profile/profile_page.dart';
 import 'cubit/bottom_nav_cubit.dart';
 
 class MainScreen extends StatelessWidget {
