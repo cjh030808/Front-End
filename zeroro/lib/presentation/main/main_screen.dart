@@ -15,28 +15,18 @@ class MainScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => BottomNavCubit(),
       child: Scaffold(
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          BlocBuilder<BottomNavCubit, BottomNav>(
-            builder: (context, state) {
-              return switch (state) {
-                BottomNav.home => const HomePage(),
-                BottomNav.profile => const ProfilePage(),
-                BottomNav.leaderboard => const LeaderboardPage(),
-                BottomNav.community => const CommunityPage(),
-              };
-            },
-          ),
-          Positioned(
-            bottom: 25,
-            left: 15,
-            right: 15,
-            child: const _BottomNavigationBar(),
-          ),
-        ],
+        body: BlocBuilder<BottomNavCubit, BottomNav>(
+          builder: (context, state) {
+            return switch (state) {
+              BottomNav.home => const HomePage(),
+              BottomNav.profile => const ProfilePage(),
+              BottomNav.leaderboard => const LeaderboardPage(),
+              BottomNav.community => const CommunityPage(),
+            };
+          },
+        ),
+        bottomNavigationBar: const _BottomNavigationBar(),
       ),
-    ),
     );
   }
 }
@@ -46,41 +36,38 @@ class _BottomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 70,
-      child: BlocBuilder<BottomNavCubit, BottomNav>(
-        builder: (_, state) {
-          return Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(50),
-              boxShadow: [
-                BoxShadow(
-            color: Colors.black.withValues(alpha: 0.2),
-            offset: const Offset(10, 8),
-            blurRadius: 4,
-          ),
-              ]
-            ),
-            clipBehavior: Clip.antiAlias,
-            child: BottomNavigationBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              currentIndex: state.index,
-              onTap: (index) =>
-                  context.read<BottomNavCubit>().changePage(index),
-              showUnselectedLabels: false,
-              type: BottomNavigationBarType.fixed,
-              items: List.generate(
-                BottomNav.values.length,
-                (index) => BottomNavigationBarItem(
-                  icon: BottomNav.values[index].icon,
-                  label: BottomNav.values[index].title,
+    return Container(
+      decoration: const BoxDecoration(
+        boxShadow: [
+          BoxShadow(color: Colors.black26, spreadRadius: 0, blurRadius: 10),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: const BorderRadius.only(
+          topRight: Radius.circular(30),
+          topLeft: Radius.circular(30),
+        ),
+        child: SizedBox(
+          height: 70,
+          child: BlocBuilder<BottomNavCubit, BottomNav>(
+            builder: (_, state) {
+              return BottomNavigationBar(
+                currentIndex: state.index,
+                onTap: (index) =>
+                    context.read<BottomNavCubit>().changePage(index),
+                showUnselectedLabels: false,
+                type: BottomNavigationBarType.fixed,
+                items: List.generate(
+                  BottomNav.values.length,
+                  (index) => BottomNavigationBarItem(
+                    icon: BottomNav.values[index].icon,
+                    label: BottomNav.values[index].title,
+                  ),
                 ),
-              ),
-            ),
-          );
-        },
+              );
+            },
+          ),
+        ),
       ),
     );
   }

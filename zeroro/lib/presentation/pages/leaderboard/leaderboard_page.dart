@@ -20,17 +20,12 @@ class LeaderboardPage extends StatelessWidget {
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.only(
-          top: 10,
-          left: 16,
-          right: 16,
-          bottom: 110,
-        ),
+        padding: const EdgeInsets.all(16.0),
         child: Card(
           elevation: 8,
           color: Colors.white,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
           ),
           child: DefaultTabController(
             length: 2,
