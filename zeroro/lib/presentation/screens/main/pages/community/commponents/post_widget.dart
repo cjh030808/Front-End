@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'like_button.dart';
+import 'comment_dialog.dart';
 
 class PostWidget extends StatelessWidget {
   final String userName;
@@ -69,7 +70,12 @@ class PostWidget extends StatelessWidget {
                 IconButton(
                   icon: const Icon(Icons.comment_outlined),
                   onPressed: () {
-                    // 나중에 댓글 작성 기능 연결 예정
+                    showDialog(
+                      context: context,
+                      barrierDismissible: true,
+                      barrierColor: Colors.black.withOpacity(0.5),
+                      builder: (_) => const CommentDialog(),
+                    );
                   },
                 ),
               ],
