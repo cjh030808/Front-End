@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'commponent/post_widget.dart';
-import 'commponent/post_edit_page.dart';
+import 'commponents/post_widget.dart';
+import 'commponents/post_edit_page.dart';
 
 class CommunityPage extends StatelessWidget {
   const CommunityPage({super.key});
