@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:zeroro/presentation/routes/route_path.dart';
 import 'commponents/post_widget.dart';
-import 'commponents/post_edit_page.dart';
 
 class CommunityPage extends StatelessWidget {
   const CommunityPage({super.key});
@@ -35,7 +36,7 @@ class CommunityPage extends StatelessWidget {
             content: '이것은 두 번째 게시글입니다. 이미지가 여러 장 있어요.',
             mediaUrls: [
               'assets/images/mock_image.jpg',
-              'assets/images/mock_image.jpg'
+              'assets/images/mock_image.jpg',
             ],
           ),
           SizedBox(height: 16),
@@ -48,10 +49,7 @@ class CommunityPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const PostEditPage()),
-          );
+          context.push(RoutePath.newPost);
         },
         child: const Icon(Icons.add),
       ),

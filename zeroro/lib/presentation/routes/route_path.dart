@@ -5,5 +5,5 @@ class RoutePath {
 
   static const String login = '/login';
 
-  static const String newPost = '/main/community/new-post';
+  static const String newPost = '/new-post';
 }
