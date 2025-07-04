@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../routes/route_path.dart';
+import 'package:rive/rive.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -16,8 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 1500), () {
-      // TODO: Access token 확인해서 자동 로그인 or 로그인 화면으로 이동
+    Future.delayed(const Duration(seconds: 3), () {
       if(mounted) {
         if(_isLoggedIn) {
           context.go(RoutePath.main);
@@ -30,8 +30,13 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('ZeroRo',style: TextStyle(fontSize: 80, fontWeight: FontWeight.bold),)),
+    return Scaffold(
+      body: Center(
+        child: RiveAnimation.asset(
+          'assets/animation/zeroro2.riv',
+          controllers: [SimpleAnimation('Timeline 1')],
+        ),
+      ),
     );
   }
 }
