@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:zeroro/presentation/routes/router.dart';
 
 import 'core/theme/theme_data.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // //Supabase
+  // await Supabase.initialize(
+  // );
+
   runApp(const MainApp());
 }
 

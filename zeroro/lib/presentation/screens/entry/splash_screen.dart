@@ -17,6 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 1500), () {
+      // TODO: Access token 확인해서 자동 로그인 or 로그인 화면으로 이동
       if(mounted) {
         if(_isLoggedIn) {
           context.go(RoutePath.main);
