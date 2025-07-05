@@ -1,7 +1,7 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class EnvConfig {
-  static bool _isInitialized = false;
+  static String _getEnv(String key) => dotenv.env[key]!;
 
   // Supabase Configuration
   static String get supabaseUrl => _getEnv('SUPABASE_URL');
@@ -13,24 +13,6 @@ class EnvConfig {
 
   // Initialize environment variables
   static Future<void> initialize() async {
-    if (!_isInitialized) {
-      await dotenv.load(fileName: '.env');
-      _isInitialized = true;
-    }
+    await dotenv.load(fileName: '.env');
   }
-
-  // Get environment variable with optional default value
-  static String _getEnv(String key, {String? defaultValue}) {
-    if (!_isInitialized) {
-      throw Exception('EnvConfig not initialized. Call EnvConfig.initialize() first.');
-    }
-
-    final value = dotenv.env[key];
-    if (value == null && defaultValue == null) {
-      throw Exception('Environment variable $key not found and no default value provided.');
-    }
-
-    return value ?? defaultValue!;
-  }
-
-} 
+}
