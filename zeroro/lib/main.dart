@@ -3,13 +3,18 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:zeroro/presentation/routes/router.dart';
 
 import 'core/theme/theme_data.dart';
+import 'core/env_config.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // 환경 변수 불러오기
+  await EnvConfig.initialize();
 
-  // //Supabase
-  // await Supabase.initialize(
-  // );
+  // Supabase
+  await Supabase.initialize(
+    url: EnvConfig.supabaseUrl,
+    anonKey: EnvConfig.supabaseAnonKey,
+  );
 
   runApp(const MainApp());
 }

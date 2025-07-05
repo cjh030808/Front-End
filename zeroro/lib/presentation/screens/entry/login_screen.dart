@@ -3,35 +3,36 @@ import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../routes/route_path.dart';
+import '../../../core/env_config.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
   final supabase = Supabase.instance.client;
 
-  // Future<AuthResponse> _googleSignIn() async {
-  //   final GoogleSignIn googleSignIn = GoogleSignIn(
-  //     clientId:
-  //     serverClientId:
-  //   );
-  //   final googleUser = await googleSignIn.signIn();
-  //   final googleAuth = await googleUser!.authentication;
-  //   final accessToken = googleAuth.accessToken;
-  //   final idToken = googleAuth.idToken;
+  Future<AuthResponse> _googleSignIn() async {
+    final GoogleSignIn googleSignIn = GoogleSignIn(
+      clientId: EnvConfig.googleAndroidClientId,
+      serverClientId: EnvConfig.googleWebClientId,
+    );
+    final googleUser = await googleSignIn.signIn();
+    final googleAuth = await googleUser!.authentication;
+    final accessToken = googleAuth.accessToken;
+    final idToken = googleAuth.idToken;
 
-  //   if (accessToken == null) {
-  //     throw 'No Access Token found.';
-  //   }
-  //   if (idToken == null) {
-  //     throw 'No ID Token found.';
-  //   }
+    if (accessToken == null) {
+      throw 'No Access Token found.';
+    }
+    if (idToken == null) {
+      throw 'No ID Token found.';
+    }
 
-  //   return supabase.auth.signInWithIdToken(
-  //     provider: OAuthProvider.google,
-  //     idToken: idToken,
-  //     accessToken: accessToken,
-  //   );
-  // }
+    return supabase.auth.signInWithIdToken(
+      provider: OAuthProvider.google,
+      idToken: idToken,
+      accessToken: accessToken,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,20 +67,20 @@ class LoginScreen extends StatelessWidget {
             height: 56,
             child: ElevatedButton(
               onPressed: () async {
-                // try {
-                  // AuthResponse authResponse = await _googleSignIn();
-                //   if (authResponse.session != null) {
-                //     context.go(RoutePath.main);
-                //   } else {
-                //     ScaffoldMessenger.of(context).showSnackBar(
-                //       SnackBar(content: Text('로그인 세션이 없습니다.')),
-                //     );
-                //   }
-                // } catch (e) {
-                //   ScaffoldMessenger.of(context).showSnackBar(
-                //     SnackBar(content: Text('로그인 중 오류가 발생했습니다: $e')),
-                //   );
-                // }
+                try {
+                  AuthResponse authResponse = await _googleSignIn();
+                  if (authResponse.session != null) {
+                    context.go(RoutePath.main);
+                  } else {
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(SnackBar(content: Text('로그인 세션이 없습니다.')));
+                  }
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('로그인 중 오류가 발생했습니다: $e')),
+                  );
+                }
               },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
