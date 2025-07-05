@@ -47,26 +47,23 @@ class _BottomNavigationBar extends StatelessWidget {
           topRight: Radius.circular(30),
           topLeft: Radius.circular(30),
         ),
-        child: SizedBox(
-          height: 70,
-          child: BlocBuilder<BottomNavCubit, BottomNav>(
-            builder: (_, state) {
-              return BottomNavigationBar(
-                currentIndex: state.index,
-                onTap: (index) =>
-                    context.read<BottomNavCubit>().changePage(index),
-                showUnselectedLabels: false,
-                type: BottomNavigationBarType.fixed,
-                items: List.generate(
-                  BottomNav.values.length,
-                  (index) => BottomNavigationBarItem(
-                    icon: BottomNav.values[index].icon,
-                    label: BottomNav.values[index].title,
-                  ),
+        child: BlocBuilder<BottomNavCubit, BottomNav>(
+          builder: (_, state) {
+            return BottomNavigationBar(
+              currentIndex: state.index,
+              onTap: (index) =>
+                  context.read<BottomNavCubit>().changePage(index),
+              showUnselectedLabels: false,
+              type: BottomNavigationBarType.fixed,
+              items: List.generate(
+                BottomNav.values.length,
+                (index) => BottomNavigationBarItem(
+                  icon: BottomNav.values[index].icon,
+                  label: BottomNav.values[index].title,
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
       ),
     );

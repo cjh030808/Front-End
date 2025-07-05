@@ -21,9 +21,7 @@ class PostWidget extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 8),
       elevation: 3,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -39,27 +37,21 @@ class PostWidget extends StatelessWidget {
                 const SizedBox(width: 8),
                 Text(
                   userName,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ],
             ),
             const SizedBox(height: 12),
             if (content.isNotEmpty)
-              Text(
-                content,
-                style: const TextStyle(fontSize: 16),
-              ),
+              Text(content, style: const TextStyle(fontSize: 16)),
             const SizedBox(height: 12),
             if (mediaUrls.isNotEmpty)
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Image.asset(
                   mediaUrls.first,
-                  height: 200,
                   width: double.infinity,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.contain,
                 ),
               ),
             const SizedBox(height: 12),
@@ -79,7 +71,7 @@ class PostWidget extends StatelessWidget {
                   },
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),
