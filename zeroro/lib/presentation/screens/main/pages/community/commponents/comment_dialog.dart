@@ -29,7 +29,7 @@ class _CommentDialogState extends State<CommentDialog> {
     if (comment.isNotEmpty) {
       setState(() {
         _comments.add({
-          'userName': '나', // 헴이니까
+          'userName': '나',
           'content': comment,
           'isReply': false, // 기본은 일반 댓글로 처리
         });

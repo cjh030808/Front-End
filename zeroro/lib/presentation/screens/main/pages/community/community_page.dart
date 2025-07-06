@@ -51,7 +51,7 @@ class CommunityPage extends StatelessWidget {
         onPressed: () {
           context.push(RoutePath.newPost);
         },
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.mode_edit_outline),
       ),
     );
   }
