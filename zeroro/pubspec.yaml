@@ -76,7 +76,7 @@ flutter:
   assets:
     - .env
     - assets/images/
-    - assets/animation/zeroro2.riv
+    - assets/animation/zeroro3.riv
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

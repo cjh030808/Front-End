@@ -9,7 +9,11 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("(로고 들어갈 자리)"),
+        title: Image.asset(
+          'assets/images/zeroro_logo_design4.png',
+          height: 60,
+          fit: BoxFit.contain,
+        ),
         actions: [
           IconButton(
             onPressed: () {},

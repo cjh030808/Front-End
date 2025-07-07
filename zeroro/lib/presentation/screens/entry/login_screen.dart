@@ -41,14 +41,11 @@ class LoginScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // 로고/제목
-          const Text(
-            'ZeroRo',
-            style: TextStyle(
-              fontSize: 40,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
+          // 로고 이미지
+          Image.asset(
+            'assets/images/zeroro_logo_design4.png',
+            height: 80,
+            fit: BoxFit.contain,
           ),
 
           const SizedBox(height: 16),
