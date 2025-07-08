@@ -17,6 +17,7 @@ dependencies:
   intl: ^0.20.2
   animations: ^2.0.11
   rive: ^0.13.20
+  flutter_speed_dial: ^7.0.0
 
   #architecture
   flutter_bloc: ^9.1.1
