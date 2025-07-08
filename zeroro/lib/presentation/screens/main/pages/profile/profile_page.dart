@@ -13,6 +13,18 @@ class ProfilePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            AppBar(
+              title: Text(
+                'My Profile',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+              centerTitle: true,
+            ),
+            
             // 프로필 정보 섹션
             const ProfileInfoSection(),
 
