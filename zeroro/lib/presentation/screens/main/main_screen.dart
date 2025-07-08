@@ -6,6 +6,7 @@ import 'pages/home/home_page.dart';
 import 'pages/leaderboard/leaderboard_page.dart';
 import 'pages/profile/profile_page.dart';
 import 'cubit/bottom_nav_cubit.dart';
+import 'cubit/animated_body_wrapper.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -17,12 +18,13 @@ class MainScreen extends StatelessWidget {
       child: Scaffold(
         body: BlocBuilder<BottomNavCubit, BottomNav>(
           builder: (context, state) {
-            return switch (state) {
+            Widget page = switch (state) {
               BottomNav.home => const HomePage(),
               BottomNav.profile => const ProfilePage(),
               BottomNav.leaderboard => const LeaderboardPage(),
               BottomNav.community => const CommunityPage(),
             };
+            return AnimatedBodyWrapper(child: page);
           },
         ),
         bottomNavigationBar: const _BottomNavigationBar(),
