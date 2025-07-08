@@ -43,7 +43,7 @@ class LoginScreen extends StatelessWidget {
         children: [
           // 로고 이미지
           Image.asset(
-            'assets/images/zeroro_logo_design4.png',
+            'assets/images/zeroro_logo_design5.png',
             height: 80,
             fit: BoxFit.contain,
           ),

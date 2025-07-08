@@ -33,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Center(
         child: RiveAnimation.asset(
-          'assets/animation/zeroro3.riv',
+          'assets/animation/zeroro4.riv',
           controllers: [SimpleAnimation('Timeline 1')],
         ),
       ),

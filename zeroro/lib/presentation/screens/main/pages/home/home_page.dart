@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Image.asset(
-          'assets/images/zeroro_logo_design4.png',
+          'assets/images/zeroro_logo_design5.png',
           height: 60,
           fit: BoxFit.contain,
         ),
