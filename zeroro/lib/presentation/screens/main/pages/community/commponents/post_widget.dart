@@ -65,7 +65,7 @@ class PostWidget extends StatelessWidget {
                     showDialog(
                       context: context,
                       barrierDismissible: true,
-                      barrierColor: Colors.black.withOpacity(0.5),
+                      barrierColor: Colors.black.withValues(alpha: 0.5),
                       builder: (_) => const CommentDialog(),
                     );
                   },
