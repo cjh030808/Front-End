@@ -98,7 +98,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
               onPressed: _isLoading ? null : _submitPost,
               style: TextButton.styleFrom(
                 backgroundColor: AppColors.primary,
-                foregroundColor: AppColors.onPrimary,
+                foregroundColor: AppColors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
@@ -114,7 +114,8 @@ class _NewPostScreenState extends State<NewPostScreen> {
                       child: CircularProgressIndicator(
                         strokeWidth: 2,
                         valueColor: AlwaysStoppedAnimation<Color>(
-                          AppColors.onPrimary,
+                          //AppColors.onPrimary,
+                          AppColors.white,
                         ),
                       ),
                     )
