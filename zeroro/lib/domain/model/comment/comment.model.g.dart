@@ -7,15 +7,15 @@ part of 'comment.model.dart';
 // **************************************************************************
 
 _Comment _$CommentFromJson(Map<String, dynamic> json) => _Comment(
+  postId: (json['postId'] as num).toInt(),
   uid: (json['uid'] as num).toInt(),
-  createdAt: DateTime.parse(json['createdAt'] as String),
-  likeCount: (json['likeCount'] as num).toInt(),
   content: json['content'] as String,
+  createdAt: DateTime.parse(json['createdAt'] as String),
 );
 
 Map<String, dynamic> _$CommentToJson(_Comment instance) => <String, dynamic>{
+  'postId': instance.postId,
   'uid': instance.uid,
-  'createdAt': instance.createdAt.toIso8601String(),
-  'likeCount': instance.likeCount,
   'content': instance.content,
+  'createdAt': instance.createdAt.toIso8601String(),
 };

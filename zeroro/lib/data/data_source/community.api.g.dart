@@ -76,7 +76,7 @@ class _CommunityApi implements CommunityApi {
   }
 
   @override
-  Future<Post> updatePost(int id, Post post) async {
+  Future<Post> updatePost(int postId, Post post) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -85,7 +85,7 @@ class _CommunityApi implements CommunityApi {
       Options(method: 'PUT', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/posts/${id}',
+            '/posts/${postId}',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -103,7 +103,7 @@ class _CommunityApi implements CommunityApi {
   }
 
   @override
-  Future<void> deletePost(int id) async {
+  Future<void> deletePost(int postId) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -112,7 +112,7 @@ class _CommunityApi implements CommunityApi {
       Options(method: 'DELETE', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/posts/${id}',
+            '/posts/${postId}',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -181,12 +181,12 @@ class _CommunityApi implements CommunityApi {
   Future<Comment> updateComment(
     int postId,
     int commentId,
-    Comment comment,
+    String commentData,
   ) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'comment_data': commentData};
     final _headers = <String, dynamic>{};
-    final _data = comment;
+    const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<Comment>(
       Options(method: 'PUT', headers: _headers, extra: _extra)
           .compose(

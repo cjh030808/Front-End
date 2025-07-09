@@ -6,10 +6,10 @@ part 'comment.model.g.dart';
 @freezed
 abstract class Comment with _$Comment {
   const factory Comment({
+    required int postId,
     required int uid,
-    required DateTime createdAt,
-    required int likeCount,
     required String content,
+    required DateTime createdAt,
   }) = _Comment;
 
   factory Comment.fromJson(Map<String, Object?> json) =>

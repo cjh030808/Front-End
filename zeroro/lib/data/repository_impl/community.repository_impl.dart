@@ -69,7 +69,7 @@ class CommunityRepositoryImpl implements CommunityRepository {
     Comment comment,
   ) async {
     try {
-      return await _api.updateComment(postId, commentId, comment);
+      return await _api.updateComment(postId, commentId, comment.content);
     } catch (e) {
       throw Exception('댓글 수정 중 오류가 발생했습니다: $e');
     }
