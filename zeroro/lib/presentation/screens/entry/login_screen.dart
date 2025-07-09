@@ -62,6 +62,7 @@ class LoginScreen extends StatelessWidget {
           // 구글 로그인 버튼
           SizedBox(
             height: 56,
+            width: 380,
             child: ElevatedButton(
               onPressed: () async {
                 try {
@@ -125,17 +126,18 @@ class LoginScreen extends StatelessWidget {
 
           // 게스트 로그인 버튼
           SizedBox(
-            width: double.infinity,
+            width: 380,
             height: 56,
-            child: OutlinedButton(
+            child: ElevatedButton(
               onPressed: () {
                 context.go(RoutePath.main);
               },
-              style: OutlinedButton.styleFrom(
-                side: BorderSide(color: Colors.grey[400]!, width: 1.5),
+              style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(50),
                 ),
+                elevation: 2,
+                backgroundColor: Colors.white,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -154,6 +156,7 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
           ),
+
 
           // TODO:서비스 약관 텍스트
         ],
