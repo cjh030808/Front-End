@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'auth_method/auth_method_1_page.dart';
 import 'auth_method/auth_method_2_page.dart';
-import 'auth_method/auth_method_3_page.dart';
 import '../../../../../core/constants.dart';
 
 class HomePage extends StatelessWidget {
@@ -42,7 +41,7 @@ class HomePage extends StatelessWidget {
         children: [
           SpeedDialChild(
             child: const Icon(Icons.image),
-            label: 'AI 인증',
+            label: '사진 인증',
             backgroundColor: Colors.lightBlue[50],
             onTap: () {
               Navigator.push(
@@ -59,17 +58,6 @@ class HomePage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (_) => const AuthMethod2Page()),
-              );
-            },
-          ),
-          SpeedDialChild(
-            child: const Icon(Icons.note_add),
-            label: '글 인증',
-            backgroundColor: Colors.lightBlue[50],
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const AuthMethod3Page()),
               );
             },
           ),
