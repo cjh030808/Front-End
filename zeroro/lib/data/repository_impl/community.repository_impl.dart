@@ -27,18 +27,18 @@ class CommunityRepositoryImpl implements CommunityRepository {
   }
 
   @override
-  Future<Post> updatePost(int id, Post post) async {
+  Future<Post> updatePost(int postId, Post post) async {
     try {
-      return await _api.updatePost(id, post);
+      return await _api.updatePost(postId, post);
     } catch (e) {
       throw Exception('게시글 수정 중 오류가 발생했습니다: $e');
     }
   }
 
   @override
-  Future<void> deletePost(int id) async {
+  Future<void> deletePost(int postId) async {
     try {
-      await _api.deletePost(id);
+      await _api.deletePost(postId);
     } catch (e) {
       throw Exception('게시글 삭제 중 오류가 발생했습니다: $e');
     }

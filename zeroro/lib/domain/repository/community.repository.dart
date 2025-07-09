@@ -5,8 +5,8 @@ abstract class CommunityRepository {
   // 게시글 관련 메서드
   Future<List<Post>> getPosts(int offset);
   Future<Post> createPost(Post post);
-  Future<Post> updatePost(int id, Post post);
-  Future<void> deletePost(int id);
+  Future<Post> updatePost(int postId, Post post);
+  Future<void> deletePost(int postId);
 
   // 댓글 관련 메서드
   Future<List<Comment>> getComments(int postId);
