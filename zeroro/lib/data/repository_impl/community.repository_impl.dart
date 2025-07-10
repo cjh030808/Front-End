@@ -1,8 +1,11 @@
+import 'package:injectable/injectable.dart';
+
 import '../../domain/model/comment/comment.model.dart';
 import '../../domain/model/post/post.model.dart';
 import '../../domain/repository/community.repository.dart';
 import '../data_source/community.api.dart';
 
+@Singleton(as: CommunityRepository)
 class CommunityRepositoryImpl implements CommunityRepository {
   final CommunityApi _api;
 

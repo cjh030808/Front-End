@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
 import '../../domain/model/comment/comment.model.dart';
 import '../../domain/model/post/post.model.dart';
 
 part 'community.api.g.dart';
 
+@Singleton()
 @RestApi(baseUrl: 'http://127.0.0.1:8000/api/v1/community')
 abstract class CommunityApi {
   factory CommunityApi(Dio dio, {String? baseUrl}) = _CommunityApi;

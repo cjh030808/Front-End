@@ -30,7 +30,7 @@ void main() {
             uid: '1',
             content: '테스트 게시글 내용',
             title: '테스트 게시글',
-            likeCount: '10',
+            likeCount: 10,
             createdAt: DateTime(2024, 1, 1),
             userName: '테스트 유저',
           ),
@@ -64,7 +64,7 @@ void main() {
           uid: '1',
           content: '새 게시글 내용',
           title: '새 게시글',
-          likeCount: '0',
+          likeCount: 0,
           createdAt: DateTime(2024, 1, 1),
           userName: '테스트 유저',
         );
@@ -85,7 +85,7 @@ void main() {
           uid: '1',
           content: '새 게시글 내용',
           title: '새 게시글',
-          likeCount: '0',
+          likeCount: 0,
           createdAt: DateTime(2024, 1, 1),
           userName: '테스트 유저',
         );
@@ -106,7 +106,7 @@ void main() {
           uid: '1',
           content: '수정된 게시글 내용',
           title: '수정된 게시글',
-          likeCount: '5',
+          likeCount: 5,
           createdAt: DateTime(2024, 1, 1),
           userName: '테스트 유저',
         );
@@ -130,7 +130,7 @@ void main() {
           uid: '1',
           content: '수정된 게시글 내용',
           title: '수정된 게시글',
-          likeCount: '5',
+          likeCount: 5,
           createdAt: DateTime(2024, 1, 1),
           userName: '테스트 유저',
         );

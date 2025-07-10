@@ -4,6 +4,7 @@ import 'package:zeroro/presentation/routes/router.dart';
 
 import 'core/theme/theme_data.dart';
 import 'core/env_config.dart';
+import 'dependency_injection.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +17,9 @@ void main() async {
     anonKey: EnvConfig.supabaseAnonKey,
   );
 
+  // DI
+  configureDependencies();
+  
   runApp(const MainApp());
 }
 

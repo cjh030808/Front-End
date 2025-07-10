@@ -204,7 +204,7 @@ class CommunityApiTester {
       uid: uid ?? 'test_post_$timestamp',
       title: title ?? '테스트 게시글 #$timestamp',
       content: content ?? '이것은 테스트용 게시글 내용입니다. 생성 시간: ${DateTime.now()}',
-      likeCount: '0',
+      likeCount: 0,
       createdAt: DateTime.now(),
       userName: '테스트사용자',
       imageUrl: null,
