@@ -173,7 +173,7 @@ void main() {
         final expectedComments = [
           Comment(
             postId: postId,
-            uid: 1,
+            uid: '1',
             content: '테스트 댓글',
             createdAt: DateTime(2024, 1, 1),
           ),
@@ -207,7 +207,7 @@ void main() {
         const postId = 1;
         final newComment = Comment(
           postId: postId,
-          uid: 1,
+          uid: '1',
           content: '새 댓글',
           createdAt: DateTime(2024, 1, 1),
         );
@@ -228,7 +228,7 @@ void main() {
         const postId = 1;
         final newComment = Comment(
           postId: postId,
-          uid: 1,
+          uid: '1',
           content: '새 댓글',
           createdAt: DateTime(2024, 1, 1),
         );
@@ -252,7 +252,7 @@ void main() {
         const commentId = 1;
         final updatedComment = Comment(
           postId: postId,
-          uid: 1,
+          uid: '1',
           content: '수정된 댓글',
           createdAt: DateTime(2024, 1, 1),
         );
@@ -280,7 +280,7 @@ void main() {
         const commentId = 1;
         final updatedComment = Comment(
           postId: postId,
-          uid: 1,
+          uid: '1',
           content: '수정된 댓글',
           createdAt: DateTime(2024, 1, 1),
         );
