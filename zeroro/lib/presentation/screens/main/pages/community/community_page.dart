@@ -15,42 +15,44 @@ class CommunityPage extends StatelessWidget {
     return BlocProvider(
       create: (_) => getIt<CommunityBloc>()..add(PostsInitialized()),
       child: Scaffold(
-        body: ListView(
+        body: Padding(
           padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
-          children: [
-            AppBar(
-              backgroundColor: Colors.white,
-              elevation: 0,
-              title: const Text(
-                'Community',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
+          child: Column(
+            children: [
+              AppBar(
+                backgroundColor: Colors.white,
+                elevation: 0,
+                title: const Text(
+                  'Community',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
                 ),
+                centerTitle: true,
               ),
-              centerTitle: true,
-            ),
-            BlocBuilder<CommunityBloc, CommunityState>(
-              builder: (context, state) {
-                return state.status == Status.success
-                    ? ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: state.postList.length,
-                        itemBuilder: (context, index) {
-                          return PostWidget(
-                            userName: state.postList[index].userName,
-                            content: state.postList[index].content,
-                            imageUrl: state.postList[index].imageUrl,
-                            initialLikeCount: state.postList[index].likeCount,
-                          );
-                        },
-                      )
-                    : const SizedBox.shrink();
-              },
-            ),
-          ],
+              BlocBuilder<CommunityBloc, CommunityState>(
+                builder: (context, state) {
+                  return state.status == Status.success
+                      ? ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: state.postList.length,
+                          itemBuilder: (context, index) {
+                            return PostWidget(
+                              userName: state.postList[index].userName,
+                              content: state.postList[index].content,
+                              imageUrl: state.postList[index].imageUrl,
+                              initialLikeCount: state.postList[index].likeCount,
+                            );
+                          },
+                        )
+                      : const SizedBox.shrink();
+                },
+              ),
+            ],
+          ),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
