@@ -13,7 +13,8 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   String? _resultMessage;
   late AnimationController _fadeController;
   late Animation<double> _fadeAnimation;
@@ -26,7 +27,10 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
-    _fadeAnimation = Tween<double>(begin: 1.0, end: 0.0).animate(_fadeController);
+    _fadeAnimation = Tween<double>(
+      begin: 1.0,
+      end: 0.0,
+    ).animate(_fadeController);
   }
 
   @override
@@ -46,10 +50,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           fit: BoxFit.contain,
         ),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.notifications),
-          ),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
         ],
       ),
       body: Stack(
@@ -75,9 +76,12 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               child: FadeTransition(
                 opacity: _fadeAnimation,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 14,
+                    horizontal: 20,
+                  ),
                   decoration: BoxDecoration(
-                    color: Colors.green.withOpacity(0.9),
+                    color: Colors.green.withValues(alpha: 0.9),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
@@ -106,7 +110,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             onTap: () async {
               final result = await Navigator.push<String>(
                 context,
-                MaterialPageRoute(builder: (_) => const AuthMethod1Page()),
+                MaterialPageRoute(builder: (_) => const AuthImagePage()),
               );
 
               if (result != null && mounted) {

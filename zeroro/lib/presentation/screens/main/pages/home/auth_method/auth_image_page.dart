@@ -5,14 +5,14 @@ import '../../../cubit/fade_message_box.dart';
 import '../components/category_selector.dart';
 import '../components/suggestion_page.dart';
 
-class AuthMethod1Page extends StatefulWidget {
-  const AuthMethod1Page({super.key});
+class AuthImagePage extends StatefulWidget {
+  const AuthImagePage({super.key});
 
   @override
-  State<AuthMethod1Page> createState() => _AuthMethod1PageState();
+  State<AuthImagePage> createState() => _AuthImagePageState();
 }
 
-class _AuthMethod1PageState extends State<AuthMethod1Page>
+class _AuthImagePageState extends State<AuthImagePage>
     with SingleTickerProviderStateMixin {
   final TextEditingController _contentController = TextEditingController();
   final List<String> _selectedImages = [];
@@ -32,7 +32,10 @@ class _AuthMethod1PageState extends State<AuthMethod1Page>
   void initState() {
     super.initState();
     _fadeController = AnimationController(vsync: this, duration: fadeDuration);
-    _fadeAnimation = Tween<double>(begin: 1.0, end: 0.0).animate(_fadeController);
+    _fadeAnimation = Tween<double>(
+      begin: 1.0,
+      end: 0.0,
+    ).animate(_fadeController);
   }
 
   @override
@@ -115,7 +118,11 @@ class _AuthMethod1PageState extends State<AuthMethod1Page>
       appBar: AppBar(
         title: const Text(
           '사진 인증',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
         ),
         centerTitle: true,
         actions: [
@@ -129,16 +136,16 @@ class _AuthMethod1PageState extends State<AuthMethod1Page>
               ),
               child: _isAnalyzing
                   ? const SizedBox(
-                width: 16,
-                height: 16,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                ),
-              )
+                      width: 16,
+                      height: 16,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      ),
+                    )
                   : const Text('AI 분석'),
             ),
-          )
+          ),
         ],
       ),
       body: Stack(
@@ -171,7 +178,10 @@ class _AuthMethod1PageState extends State<AuthMethod1Page>
                         maxLines: null,
                         decoration: const InputDecoration(
                           hintText: 'AI 인증을 위해 사진을 설명해주세요',
-                          hintStyle: TextStyle(fontSize: 18, color: Colors.grey),
+                          hintStyle: TextStyle(
+                            fontSize: 18,
+                            color: Colors.grey,
+                          ),
                           border: InputBorder.none,
                         ),
                         style: const TextStyle(fontSize: 16),
@@ -180,7 +190,10 @@ class _AuthMethod1PageState extends State<AuthMethod1Page>
                       if (_selectedImages.isNotEmpty) ...[
                         const Text(
                           '첨부된 이미지',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         const SizedBox(height: 12),
                         SizedBox(
@@ -212,7 +225,11 @@ class _AuthMethod1PageState extends State<AuthMethod1Page>
                                           color: Colors.black54,
                                           shape: BoxShape.circle,
                                         ),
-                                        child: const Icon(Icons.close, color: Colors.white, size: 16),
+                                        child: const Icon(
+                                          Icons.close,
+                                          color: Colors.white,
+                                          size: 16,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -228,7 +245,10 @@ class _AuthMethod1PageState extends State<AuthMethod1Page>
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   border: Border(top: BorderSide(color: Colors.grey.shade300)),
@@ -251,14 +271,21 @@ class _AuthMethod1PageState extends State<AuthMethod1Page>
               left: 16,
               right: 16,
               child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 12,
+                  horizontal: 16,
+                ),
                 decoration: BoxDecoration(
                   color: AppColors.positive,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: const Text(
                   'AI가 분석 중입니다...',
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -272,7 +299,11 @@ class _AuthMethod1PageState extends State<AuthMethod1Page>
                 message: _warningMessage!,
                 animation: _fadeAnimation,
                 backgroundColor: AppColors.error,
-                textStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+                textStyle: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
               ),
             ),
         ],
