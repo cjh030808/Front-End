@@ -6,8 +6,9 @@ part 'comment.model.g.dart';
 @freezed
 abstract class Comment with _$Comment {
   const factory Comment({
+    required int id,
     required int postId,
-    required int uid,
+    required String uid,
     required String content,
     required DateTime createdAt,
   }) = _Comment;

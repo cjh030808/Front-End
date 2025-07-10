@@ -7,6 +7,7 @@ part of 'post.model.dart';
 // **************************************************************************
 
 _Post _$PostFromJson(Map<String, dynamic> json) => _Post(
+  id: (json['id'] as num).toInt(),
   uid: json['uid'] as String,
   content: json['content'] as String,
   imageUrl: json['imageUrl'] as String?,
@@ -18,6 +19,7 @@ _Post _$PostFromJson(Map<String, dynamic> json) => _Post(
 );
 
 Map<String, dynamic> _$PostToJson(_Post instance) => <String, dynamic>{
+  'id': instance.id,
   'uid': instance.uid,
   'content': instance.content,
   'imageUrl': instance.imageUrl,

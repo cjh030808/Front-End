@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Post {
 
- String get uid; String get content; String? get imageUrl; String get likeCount; DateTime get createdAt; String get title; String? get userImg; String get userName;
+ int get id; String get uid; String get content; String? get imageUrl; String get likeCount; DateTime get createdAt; String get title; String? get userImg; String get userName;
 /// Create a copy of Post
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $PostCopyWith<Post> get copyWith => _$PostCopyWithImpl<Post>(this as Post, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Post&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.content, content) || other.content == content)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.likeCount, likeCount) || other.likeCount == likeCount)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.title, title) || other.title == title)&&(identical(other.userImg, userImg) || other.userImg == userImg)&&(identical(other.userName, userName) || other.userName == userName));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Post&&(identical(other.id, id) || other.id == id)&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.content, content) || other.content == content)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.likeCount, likeCount) || other.likeCount == likeCount)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.title, title) || other.title == title)&&(identical(other.userImg, userImg) || other.userImg == userImg)&&(identical(other.userName, userName) || other.userName == userName));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,uid,content,imageUrl,likeCount,createdAt,title,userImg,userName);
+int get hashCode => Object.hash(runtimeType,id,uid,content,imageUrl,likeCount,createdAt,title,userImg,userName);
 
 @override
 String toString() {
-  return 'Post(uid: $uid, content: $content, imageUrl: $imageUrl, likeCount: $likeCount, createdAt: $createdAt, title: $title, userImg: $userImg, userName: $userName)';
+  return 'Post(id: $id, uid: $uid, content: $content, imageUrl: $imageUrl, likeCount: $likeCount, createdAt: $createdAt, title: $title, userImg: $userImg, userName: $userName)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $PostCopyWith<$Res>  {
   factory $PostCopyWith(Post value, $Res Function(Post) _then) = _$PostCopyWithImpl;
 @useResult
 $Res call({
- String uid, String content, String? imageUrl, String likeCount, DateTime createdAt, String title, String? userImg, String userName
+ int id, String uid, String content, String? imageUrl, String likeCount, DateTime createdAt, String title, String? userImg, String userName
 });
 
 
@@ -65,9 +65,10 @@ class _$PostCopyWithImpl<$Res>
 
 /// Create a copy of Post
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? uid = null,Object? content = null,Object? imageUrl = freezed,Object? likeCount = null,Object? createdAt = null,Object? title = null,Object? userImg = freezed,Object? userName = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? uid = null,Object? content = null,Object? imageUrl = freezed,Object? likeCount = null,Object? createdAt = null,Object? title = null,Object? userImg = freezed,Object? userName = null,}) {
   return _then(_self.copyWith(
-uid: null == uid ? _self.uid : uid // ignore: cast_nullable_to_non_nullable
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,uid: null == uid ? _self.uid : uid // ignore: cast_nullable_to_non_nullable
 as String,content: null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
 as String,imageUrl: freezed == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
 as String?,likeCount: null == likeCount ? _self.likeCount : likeCount // ignore: cast_nullable_to_non_nullable
@@ -160,10 +161,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String uid,  String content,  String? imageUrl,  String likeCount,  DateTime createdAt,  String title,  String? userImg,  String userName)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String uid,  String content,  String? imageUrl,  String likeCount,  DateTime createdAt,  String title,  String? userImg,  String userName)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Post() when $default != null:
-return $default(_that.uid,_that.content,_that.imageUrl,_that.likeCount,_that.createdAt,_that.title,_that.userImg,_that.userName);case _:
+return $default(_that.id,_that.uid,_that.content,_that.imageUrl,_that.likeCount,_that.createdAt,_that.title,_that.userImg,_that.userName);case _:
   return orElse();
 
 }
@@ -181,10 +182,10 @@ return $default(_that.uid,_that.content,_that.imageUrl,_that.likeCount,_that.cre
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String uid,  String content,  String? imageUrl,  String likeCount,  DateTime createdAt,  String title,  String? userImg,  String userName)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String uid,  String content,  String? imageUrl,  String likeCount,  DateTime createdAt,  String title,  String? userImg,  String userName)  $default,) {final _that = this;
 switch (_that) {
 case _Post():
-return $default(_that.uid,_that.content,_that.imageUrl,_that.likeCount,_that.createdAt,_that.title,_that.userImg,_that.userName);case _:
+return $default(_that.id,_that.uid,_that.content,_that.imageUrl,_that.likeCount,_that.createdAt,_that.title,_that.userImg,_that.userName);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -201,10 +202,10 @@ return $default(_that.uid,_that.content,_that.imageUrl,_that.likeCount,_that.cre
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String uid,  String content,  String? imageUrl,  String likeCount,  DateTime createdAt,  String title,  String? userImg,  String userName)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String uid,  String content,  String? imageUrl,  String likeCount,  DateTime createdAt,  String title,  String? userImg,  String userName)?  $default,) {final _that = this;
 switch (_that) {
 case _Post() when $default != null:
-return $default(_that.uid,_that.content,_that.imageUrl,_that.likeCount,_that.createdAt,_that.title,_that.userImg,_that.userName);case _:
+return $default(_that.id,_that.uid,_that.content,_that.imageUrl,_that.likeCount,_that.createdAt,_that.title,_that.userImg,_that.userName);case _:
   return null;
 
 }
@@ -216,9 +217,10 @@ return $default(_that.uid,_that.content,_that.imageUrl,_that.likeCount,_that.cre
 @JsonSerializable()
 
 class _Post implements Post {
-  const _Post({required this.uid, required this.content, this.imageUrl, required this.likeCount, required this.createdAt, required this.title, this.userImg, required this.userName});
+  const _Post({required this.id, required this.uid, required this.content, this.imageUrl, required this.likeCount, required this.createdAt, required this.title, this.userImg, required this.userName});
   factory _Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
 
+@override final  int id;
 @override final  String uid;
 @override final  String content;
 @override final  String? imageUrl;
@@ -241,16 +243,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Post&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.content, content) || other.content == content)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.likeCount, likeCount) || other.likeCount == likeCount)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.title, title) || other.title == title)&&(identical(other.userImg, userImg) || other.userImg == userImg)&&(identical(other.userName, userName) || other.userName == userName));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Post&&(identical(other.id, id) || other.id == id)&&(identical(other.uid, uid) || other.uid == uid)&&(identical(other.content, content) || other.content == content)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.likeCount, likeCount) || other.likeCount == likeCount)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.title, title) || other.title == title)&&(identical(other.userImg, userImg) || other.userImg == userImg)&&(identical(other.userName, userName) || other.userName == userName));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,uid,content,imageUrl,likeCount,createdAt,title,userImg,userName);
+int get hashCode => Object.hash(runtimeType,id,uid,content,imageUrl,likeCount,createdAt,title,userImg,userName);
 
 @override
 String toString() {
-  return 'Post(uid: $uid, content: $content, imageUrl: $imageUrl, likeCount: $likeCount, createdAt: $createdAt, title: $title, userImg: $userImg, userName: $userName)';
+  return 'Post(id: $id, uid: $uid, content: $content, imageUrl: $imageUrl, likeCount: $likeCount, createdAt: $createdAt, title: $title, userImg: $userImg, userName: $userName)';
 }
 
 
@@ -261,7 +263,7 @@ abstract mixin class _$PostCopyWith<$Res> implements $PostCopyWith<$Res> {
   factory _$PostCopyWith(_Post value, $Res Function(_Post) _then) = __$PostCopyWithImpl;
 @override @useResult
 $Res call({
- String uid, String content, String? imageUrl, String likeCount, DateTime createdAt, String title, String? userImg, String userName
+ int id, String uid, String content, String? imageUrl, String likeCount, DateTime createdAt, String title, String? userImg, String userName
 });
 
 
@@ -278,9 +280,10 @@ class __$PostCopyWithImpl<$Res>
 
 /// Create a copy of Post
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? uid = null,Object? content = null,Object? imageUrl = freezed,Object? likeCount = null,Object? createdAt = null,Object? title = null,Object? userImg = freezed,Object? userName = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? uid = null,Object? content = null,Object? imageUrl = freezed,Object? likeCount = null,Object? createdAt = null,Object? title = null,Object? userImg = freezed,Object? userName = null,}) {
   return _then(_Post(
-uid: null == uid ? _self.uid : uid // ignore: cast_nullable_to_non_nullable
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,uid: null == uid ? _self.uid : uid // ignore: cast_nullable_to_non_nullable
 as String,content: null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
 as String,imageUrl: freezed == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
 as String?,likeCount: null == likeCount ? _self.likeCount : likeCount // ignore: cast_nullable_to_non_nullable

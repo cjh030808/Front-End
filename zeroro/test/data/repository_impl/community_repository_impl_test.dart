@@ -26,6 +26,7 @@ void main() {
         const offset = 0;
         final expectedPosts = [
           Post(
+            id: 0,
             uid: '1',
             content: '테스트 게시글 내용',
             title: '테스트 게시글',
@@ -59,6 +60,7 @@ void main() {
       test('성공적으로 게시글을 생성해야 함', () async {
         // Arrange
         final newPost = Post(
+          id: 0,
           uid: '1',
           content: '새 게시글 내용',
           title: '새 게시글',
@@ -77,8 +79,9 @@ void main() {
       });
 
       test('게시글 생성 실패 시 예외를 발생시켜야 함', () async {
-        // Arrange
+        // Arrange  
         final newPost = Post(
+          id: 0,
           uid: '1',
           content: '새 게시글 내용',
           title: '새 게시글',
@@ -99,6 +102,7 @@ void main() {
         // Arrange
         const postId = 1;
         final updatedPost = Post(
+          id: 0,
           uid: '1',
           content: '수정된 게시글 내용',
           title: '수정된 게시글',
@@ -122,6 +126,7 @@ void main() {
         // Arrange
         const postId = 1;
         final updatedPost = Post(
+          id: 0,
           uid: '1',
           content: '수정된 게시글 내용',
           title: '수정된 게시글',
@@ -172,6 +177,7 @@ void main() {
         const postId = 1;
         final expectedComments = [
           Comment(
+            id: 0,
             postId: postId,
             uid: '1',
             content: '테스트 댓글',
@@ -206,6 +212,7 @@ void main() {
         // Arrange
         const postId = 1;
         final newComment = Comment(
+          id: 0,
           postId: postId,
           uid: '1',
           content: '새 댓글',
@@ -227,6 +234,7 @@ void main() {
         // Arrange
         const postId = 1;
         final newComment = Comment(
+          id: 0,
           postId: postId,
           uid: '1',
           content: '새 댓글',
@@ -251,6 +259,7 @@ void main() {
         const postId = 1;
         const commentId = 1;
         final updatedComment = Comment(
+          id: 0,
           postId: postId,
           uid: '1',
           content: '수정된 댓글',
@@ -279,6 +288,7 @@ void main() {
         const postId = 1;
         const commentId = 1;
         final updatedComment = Comment(
+          id: 0,
           postId: postId,
           uid: '1',
           content: '수정된 댓글',

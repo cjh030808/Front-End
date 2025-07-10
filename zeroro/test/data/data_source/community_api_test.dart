@@ -50,6 +50,7 @@ void main() {
 
       test('게시글 생성 테스트', () async {
         final testPost = Post(
+          id: 0,
           uid: 'test_user_${DateTime.now().millisecondsSinceEpoch}',
           content: '테스트 게시글 내용입니다.',
           title: '테스트 게시글 제목',
@@ -82,6 +83,7 @@ void main() {
         }
 
         final updatedPost = Post(
+          id: 0,
           uid: _createdPostId!,
           content: '수정된 게시글 내용입니다.',
           title: '수정된 게시글 제목',
@@ -140,6 +142,7 @@ void main() {
 
       test('댓글 생성 테스트', () async {
         final testComment = Comment(
+          id: 0,
           postId: 1, // 임시 postId
           uid: 'test_user_${DateTime.now().millisecondsSinceEpoch}',
           content: '테스트 댓글 내용입니다.',

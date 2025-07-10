@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:zeroro/data/data_source/community.api.dart';
 import 'package:zeroro/domain/model/post/post.model.dart';
 import 'package:zeroro/domain/model/comment/comment.model.dart';
@@ -10,24 +11,24 @@ import 'package:zeroro/domain/model/comment/comment.model.dart';
 /// 1. 로컬 서버가 http://127.0.0.1:8000 에서 실행되고 있는지 확인
 /// 2. dart run test/manual_test/community_api_manual_test.dart 실행
 void main() async {
-  print('🚀 CommunityApi 로컬 서버 테스트 시작');
-  print('📡 서버 주소: http://127.0.0.1:8000/api/v1/community');
-  print('─' * 50);
+  debugPrint('🚀 CommunityApi 로컬 서버 테스트 시작');
+  debugPrint('📡 서버 주소: http://127.0.0.1:8000/api/v1/community');
+  debugPrint('─' * 50);
 
   final tester = CommunityApiTester();
 
   // 서버 연결 확인
   final isServerRunning = await tester.checkServerHealth();
   if (!isServerRunning) {
-    print('❌ 서버에 연결할 수 없습니다. 로컬 서버가 실행 중인지 확인해주세요.');
+    debugPrint('❌ 서버에 연결할 수 없습니다. 로컬 서버가 실행 중인지 확인해주세요.');
     exit(1);
   }
 
   // 전체 API 테스트 실행
   await tester.runAllTests();
 
-  print('─' * 50);
-  print('✅ 모든 테스트 완료');
+  debugPrint('─' * 50);
+  debugPrint('✅ 모든 테스트 완료');
 }
 
 class CommunityApiTester {
@@ -48,7 +49,7 @@ class CommunityApiTester {
         requestHeader: false,
         responseHeader: false,
         error: true,
-        logPrint: (obj) => print('🌐 $obj'),
+        logPrint: (obj) => debugPrint('🌐 $obj'),
       ),
     );
 
@@ -57,19 +58,19 @@ class CommunityApiTester {
 
   /// 서버 연결 상태 확인
   Future<bool> checkServerHealth() async {
-    try {
-      print('🔍 서버 연결 확인 중...');
+    try { 
+      debugPrint('🔍 서버 연결 확인 중...');
       await dio.get('http://127.0.0.1:8000/health'); // 헬스체크 엔드포인트 (서버에 있다면)
-      print('✅ 서버 연결 성공');
+      debugPrint('✅ 서버 연결 성공');
       return true;
     } catch (e) {
       // 헬스체크 엔드포인트가 없다면 게시글 목록으로 테스트
       try {
         await communityApi.getPosts(0);
-        print('✅ 서버 연결 성공 (게시글 API로 확인)');
+        debugPrint('✅ 서버 연결 성공 (게시글 API로 확인)');
         return true;
       } catch (e2) {
-        print('❌ 서버 연결 실패: $e2');
+        debugPrint('❌ 서버 연결 실패: $e2');
         return false;
       }
     }
@@ -83,15 +84,15 @@ class CommunityApiTester {
 
   /// 게시글 API 테스트
   Future<void> testPostsApi() async {
-    print('\n📝 게시글 API 테스트');
-    print('─' * 30);
+    debugPrint('\n📝 게시글 API 테스트');
+    debugPrint('─' * 30);
 
     // 1. 게시글 목록 조회
     await _safeTest('게시글 목록 조회', () async {
       final posts = await communityApi.getPosts(0);
-      print('   📋 조회된 게시글 수: ${posts.length}');
+        debugPrint('   📋 조회된 게시글 수: ${posts.length}');
       if (posts.isNotEmpty) {
-        print('   📌 첫 번째 게시글: "${posts.first.title}"');
+        debugPrint('   📌 첫 번째 게시글: "${posts.first.title}"');
       }
     });
 
@@ -101,8 +102,8 @@ class CommunityApiTester {
       final testPost = _createTestPost();
       final createdPost = await communityApi.createPost(testPost);
       createdPostId = createdPost.uid;
-      print('   📄 생성된 게시글 ID: $createdPostId');
-      print('   📝 제목: "${createdPost.title}"');
+      debugPrint('   📄 생성된 게시글 ID: $createdPostId');
+      debugPrint('   📝 제목: "${createdPost.title}"');
     });
 
     // 3. 게시글 수정 (생성이 성공했을 때만)
@@ -118,30 +119,30 @@ class CommunityApiTester {
           int.tryParse(createdPostId!) ?? 1,
           updatedPost,
         );
-        print('   ✏️ 수정된 제목: "${result.title}"');
+        debugPrint('   ✏️ 수정된 제목: "${result.title}"');
       });
 
       // 4. 게시글 삭제
       await _safeTest('게시글 삭제', () async {
         await communityApi.deletePost(int.tryParse(createdPostId!) ?? 1);
-        print('   🗑️ 게시글 삭제 완료');
+        debugPrint('   🗑️ 게시글 삭제 완료');
       });
     }
   }
 
   /// 댓글 API 테스트
   Future<void> testCommentsApi() async {
-    print('\n💬 댓글 API 테스트');
-    print('─' * 30);
+    debugPrint('\n💬 댓글 API 테스트');
+    debugPrint('─' * 30);
 
     const testPostId = 1; // 기존에 존재하는 게시글 ID 가정
 
     // 1. 댓글 목록 조회
     await _safeTest('댓글 목록 조회', () async {
       final comments = await communityApi.getComments(testPostId);
-      print('   💭 조회된 댓글 수: ${comments.length}');
+      debugPrint('   💭 조회된 댓글 수: ${comments.length}');
       if (comments.isNotEmpty) {
-        print('   💬 첫 번째 댓글: "${comments.first.content}"');
+        debugPrint('   💬 첫 번째 댓글: "${comments.first.content}"');
       }
     });
 
@@ -154,8 +155,8 @@ class CommunityApiTester {
         testComment,
       );
       createdCommentId = createdComment.uid;
-      print('   💬 생성된 댓글 ID: $createdCommentId');
-      print('   📝 내용: "${createdComment.content}"');
+      debugPrint('   💬 생성된 댓글 ID: $createdCommentId');
+      debugPrint('   📝 내용: "${createdComment.content}"');
     });
 
     // 3. 댓글 수정 (생성이 성공했을 때만)
@@ -166,7 +167,7 @@ class CommunityApiTester {
           int.tryParse(createdCommentId!) ?? 1,
           '수정된 댓글 내용입니다.',
         );
-        print('   ✏️ 수정된 내용: "${result.content}"');
+        debugPrint('   ✏️ 수정된 내용: "${result.content}"');
       });
 
       // 4. 댓글 삭제
@@ -175,7 +176,7 @@ class CommunityApiTester {
           testPostId,
           int.tryParse(createdCommentId!) ?? 1,
         );
-        print('   🗑️ 댓글 삭제 완료');
+        debugPrint('   🗑️ 댓글 삭제 완료');
       });
     }
   }
@@ -183,14 +184,14 @@ class CommunityApiTester {
   /// 안전한 테스트 실행 (에러 처리 포함)
   Future<void> _safeTest(String testName, Future<void> Function() test) async {
     try {
-      print('🧪 $testName...');
+      debugPrint('🧪 $testName...');
       await test();
-      print('   ✅ 성공');
+      debugPrint('   ✅ 성공');
     } catch (e) {
-      print('   ❌ 실패: $e');
+      debugPrint('   ❌ 실패: $e');
       if (e is DioException) {
-        print('   📊 상태 코드: ${e.response?.statusCode}');
-        print('   📄 응답 데이터: ${e.response?.data}');
+        debugPrint('   📊 상태 코드: ${e.response?.statusCode}');
+        debugPrint('   📄 응답 데이터: ${e.response?.data}');
       }
     }
   }
@@ -199,6 +200,7 @@ class CommunityApiTester {
   Post _createTestPost({String? uid, String? title, String? content}) {
     final timestamp = DateTime.now().millisecondsSinceEpoch;
     return Post(
+      id: 0,
       uid: uid ?? 'test_post_$timestamp',
       title: title ?? '테스트 게시글 #$timestamp',
       content: content ?? '이것은 테스트용 게시글 내용입니다. 생성 시간: ${DateTime.now()}',
@@ -214,6 +216,7 @@ class CommunityApiTester {
   Comment _createTestComment({required int postId}) {
     final timestamp = DateTime.now().millisecondsSinceEpoch;
     return Comment(
+      id: 0,
       postId: postId,
       uid: 'test_comment_$timestamp',
       content: '이것은 테스트 댓글입니다. 생성 시간: ${DateTime.now()}',
