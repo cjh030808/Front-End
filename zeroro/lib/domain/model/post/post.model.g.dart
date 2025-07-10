@@ -11,7 +11,7 @@ _Post _$PostFromJson(Map<String, dynamic> json) => _Post(
   uid: json['uid'] as String,
   content: json['content'] as String,
   imageUrl: json['imageUrl'] as String?,
-  likeCount: json['likeCount'] as String,
+  likeCount: (json['likeCount'] as num).toInt(),
   createdAt: DateTime.parse(json['createdAt'] as String),
   title: json['title'] as String,
   userImg: json['userImg'] as String?,

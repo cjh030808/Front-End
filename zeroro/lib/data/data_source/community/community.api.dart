@@ -1,17 +1,18 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
-import '../../domain/model/comment/comment.model.dart';
-import '../../domain/model/post/post.model.dart';
+import '../../../domain/model/comment/comment.model.dart';
+import '../../../domain/model/post/post.model.dart';
+import '../../dto/community/post_list_response.dart';
 
 part 'community.api.g.dart';
 
-@RestApi(baseUrl: 'http://127.0.0.1:8000/api/v1/community')
+@RestApi(baseUrl: 'http://10.0.2.2:8000/api/v1/community')
 abstract class CommunityApi {
   factory CommunityApi(Dio dio, {String? baseUrl}) = _CommunityApi;
 
   // 게시글
   @GET('/posts')
-  Future<List<Post>> getPosts(@Query('offset') int offset);
+  Future<PostListResponse> getPosts(@Query('offset') int offset);
 
   @POST('/posts')
   Future<Post> createPost(@Body() Post post);

@@ -10,7 +10,7 @@ abstract class Post with _$Post {
     required String uid,
     required String content,
     String? imageUrl,
-    required String likeCount,
+    required int likeCount,
     required DateTime createdAt,
     required String title,
     String? userImg,

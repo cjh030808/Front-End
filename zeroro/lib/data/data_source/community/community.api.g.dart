@@ -10,7 +10,7 @@ part of 'community.api.dart';
 
 class _CommunityApi implements CommunityApi {
   _CommunityApi(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'http://127.0.0.1:8000/api/v1/community';
+    baseUrl ??= 'http://10.0.2.2:8000/api/v1/community';
   }
 
   final Dio _dio;
@@ -20,12 +20,12 @@ class _CommunityApi implements CommunityApi {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<List<Post>> getPosts(int offset) async {
+  Future<PostListResponse> getPosts(int offset) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'offset': offset};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<Post>>(
+    final _options = _setStreamType<PostListResponse>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -35,12 +35,10 @@ class _CommunityApi implements CommunityApi {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<List<dynamic>>(_options);
-    late List<Post> _value;
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late PostListResponse _value;
     try {
-      _value = _result.data!
-          .map((dynamic i) => Post.fromJson(i as Map<String, dynamic>))
-          .toList();
+      _value = PostListResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

@@ -1,61 +1,63 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:zeroro/dependency_injection.dart';
 import 'package:zeroro/presentation/routes/route_path.dart';
+import '../../../../../core/constants.dart';
+import 'bloc/community_bloc.dart';
 import 'commponents/post_widget.dart';
-
-final mockData = [
-  PostWidget(
-    userName: '사용자1',
-    content: '이것은 첫 번째 게시글입니다.',
-    mediaUrls: ['assets/images/mock_image.jpg'],
-  ),
-  SizedBox(height: 16),
-  PostWidget(
-    userName: '사용자2',
-    content: '이것은 두 번째 게시글입니다. 이미지가 여러 장 있어요.',
-    mediaUrls: [
-      'assets/images/mock_image.jpg',
-      'assets/images/mock_image.jpg',
-    ],
-  ),
-  SizedBox(height: 16),
-  PostWidget(
-    userName: '사용자3',
-    content: '세 번째 게시글. 텍스트만 있음.',
-    mediaUrls: [],
-  ),
-];
 
 class CommunityPage extends StatelessWidget {
   const CommunityPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-        padding: const EdgeInsets.only(left: 16,right: 16,bottom: 16),
-        children:[
-          AppBar(
-            backgroundColor: Colors.white,
-            elevation: 0,
-            title: const Text(
-              'Community',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
+    return BlocProvider(
+      create: (_) => getIt<CommunityBloc>()..add(PostsInitialized()),
+      child: Scaffold(
+        body: ListView(
+          padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+          children: [
+            AppBar(
+              backgroundColor: Colors.white,
+              elevation: 0,
+              title: const Text(
+                'Community',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
               ),
+              centerTitle: true,
             ),
-            centerTitle: true,
-          ),
-          ...mockData,
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          context.push(RoutePath.newPost);
-        },
-        child: const Icon(Icons.mode_edit_outline),
+            BlocBuilder<CommunityBloc, CommunityState>(
+              builder: (context, state) {
+                return state.status == Status.success
+                    ? ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: state.postList.length,
+                        itemBuilder: (context, index) {
+                          return PostWidget(
+                            userName: state.postList[index].userName,
+                            content: state.postList[index].content,
+                            imageUrl: state.postList[index].imageUrl,
+                            initialLikeCount: state.postList[index].likeCount,
+                          );
+                        },
+                      )
+                    : const SizedBox.shrink();
+              },
+            ),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            context.push(RoutePath.newPost);
+          },
+          child: const Icon(Icons.mode_edit_outline),
+        ),
       ),
     );
   }

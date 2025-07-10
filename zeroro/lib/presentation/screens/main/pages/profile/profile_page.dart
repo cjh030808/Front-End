@@ -24,7 +24,7 @@ class ProfilePage extends StatelessWidget {
               ),
               centerTitle: true,
             ),
-            
+
             // 프로필 정보 섹션
             const ProfileInfoSection(),
 
@@ -60,7 +60,7 @@ class ProfilePage extends StatelessWidget {
         itemBuilder: (context, index) => PostWidget(
           userName: '김오띠',
           content: '게시글 내용 ${index + 1}',
-          mediaUrls: [],
+          imageUrl: null,
         ),
       ),
     );

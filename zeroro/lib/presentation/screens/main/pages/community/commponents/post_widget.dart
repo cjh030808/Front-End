@@ -5,14 +5,14 @@ import 'comment_dialog.dart';
 class PostWidget extends StatelessWidget {
   final String userName;
   final String content;
-  final List<String> mediaUrls;
+  final String? imageUrl;
   final int initialLikeCount;
 
   const PostWidget({
     super.key,
     required this.userName,
     required this.content,
-    required this.mediaUrls,
+    this.imageUrl,
     this.initialLikeCount = 0,
   });
 
@@ -45,11 +45,11 @@ class PostWidget extends StatelessWidget {
             if (content.isNotEmpty)
               Text(content, style: const TextStyle(fontSize: 16)),
             const SizedBox(height: 12),
-            if (mediaUrls.isNotEmpty)
+            if (imageUrl != null)
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: Image.asset(
-                  mediaUrls.first,
+                child: Image.network(
+                  imageUrl!,
                   width: double.infinity,
                   fit: BoxFit.contain,
                 ),

@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 import '../../domain/model/comment/comment.model.dart';
 import '../../domain/model/post/post.model.dart';
 import '../../domain/repository/community.repository.dart';
-import '../data_source/community.api.dart';
+import '../data_source/community/community.api.dart';
 
 @Singleton(as: CommunityRepository)
 class CommunityRepositoryImpl implements CommunityRepository {
@@ -14,7 +14,8 @@ class CommunityRepositoryImpl implements CommunityRepository {
   @override
   Future<List<Post>> getPosts(int offset) async {
     try {
-      return await _api.getPosts(offset);
+      final response = await _api.getPosts(offset);
+      return response.posts.map((postDto) => postDto.toDomain()).toList();
     } catch (e) {
       throw Exception('게시글을 불러오는 중 오류가 발생했습니다: $e');
     }

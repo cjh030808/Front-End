@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../core/client.dart';
-import 'community.api.dart';
+import 'community/community.api.dart';
 
 @module
 abstract class DataSourceModule {
