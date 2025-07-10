@@ -3,24 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:zeroro/core/theme/constant/app_color.dart';
 import '../../../cubit/fade_message_box.dart';
 
-class AuthMethod2Page extends StatefulWidget {
-  const AuthMethod2Page({super.key});
+class AuthQuizPage extends StatefulWidget {
+  const AuthQuizPage({super.key});
 
   @override
-  State<AuthMethod2Page> createState() => _AuthMethod2PageState();
+  State<AuthQuizPage> createState() => _AuthQuizPageState();
 }
 
-class _AuthMethod2PageState extends State<AuthMethod2Page> with SingleTickerProviderStateMixin {
+class _AuthQuizPageState extends State<AuthQuizPage>
+    with SingleTickerProviderStateMixin {
   // 퀴즈 문제 리스트 (서버에서 받아올 데이터 구조 모킹)
   final List<Map<String, dynamic>> _questions = [
-    {
-      'question': '테스트 지문 1: 병아리는 배꼽이 있을까요?',
-      'answer': false,
-    },
-    {
-      'question': '테스트 지문 2: 태양은 동쪽에서 뜬다?',
-      'answer': true,
-    },
+    {'question': '테스트 지문 1: 병아리는 배꼽이 있을까요?', 'answer': false},
+    {'question': '테스트 지문 2: 태양은 동쪽에서 뜬다?', 'answer': true},
   ];
 
   // 현재 문제 인덱스
@@ -55,7 +50,10 @@ class _AuthMethod2PageState extends State<AuthMethod2Page> with SingleTickerProv
 
     // 페이드 애니메이션 컨트롤러 초기화 (0.4초 동안 투명도 1->0)
     _fadeController = AnimationController(vsync: this, duration: fadeDuration);
-    _fadeAnimation = Tween<double>(begin: 1.0, end: 0.0).animate(_fadeController);
+    _fadeAnimation = Tween<double>(
+      begin: 1.0,
+      end: 0.0,
+    ).animate(_fadeController);
 
     // 첫 번째 문제 로드
     _loadQuestion(_currentQuestionIndex);
@@ -84,13 +82,13 @@ class _AuthMethod2PageState extends State<AuthMethod2Page> with SingleTickerProv
     setState(() {
       _questionText = questionData['question'] as String;
       _correctAnswer = questionData['answer'] as bool;
-      _resultMessage = null;  // 문제 바뀌면 결과 메시지 초기화
+      _resultMessage = null; // 문제 바뀌면 결과 메시지 초기화
     });
   }
 
   // 사용자가 O/X 답변 버튼을 눌렀을 때 호출
   void _handleAnswer(bool userAnswer) {
-    if (_correctAnswer == null) return;  // 정답 없으면 무시
+    if (_correctAnswer == null) return; // 정답 없으면 무시
 
     bool isCorrect = (userAnswer == _correctAnswer);
 
@@ -147,7 +145,7 @@ class _AuthMethod2PageState extends State<AuthMethod2Page> with SingleTickerProv
         boxShadow: [
           // 버튼 외곽에 그림자 효과
           BoxShadow(
-            color: Colors.black.withOpacity(0.4),
+            color: Colors.black.withValues(alpha: 0.4),
             offset: const Offset(0, 6),
             blurRadius: 8,
           ),
@@ -158,11 +156,16 @@ class _AuthMethod2PageState extends State<AuthMethod2Page> with SingleTickerProv
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor,
           padding: const EdgeInsets.symmetric(vertical: 32),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
           elevation: 0,
           shadowColor: Colors.transparent,
         ),
-        child: Text(label, style: const TextStyle(fontSize: 32, color: Colors.white)),
+        child: Text(
+          label,
+          style: const TextStyle(fontSize: 32, color: Colors.white),
+        ),
       ),
     );
   }
@@ -173,7 +176,11 @@ class _AuthMethod2PageState extends State<AuthMethod2Page> with SingleTickerProv
       appBar: AppBar(
         title: const Text(
           '퀴즈 인증',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
         ),
         centerTitle: true,
         backgroundColor: Colors.white,
@@ -186,17 +193,25 @@ class _AuthMethod2PageState extends State<AuthMethod2Page> with SingleTickerProv
               Expanded(
                 child: Center(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 16,
+                    ),
                     child: Card(
                       elevation: 6,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
                       child: Container(
                         padding: const EdgeInsets.all(24),
                         width: double.infinity,
                         child: Text(
                           _questionText,
                           textAlign: TextAlign.center,
-                          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ),
@@ -235,14 +250,19 @@ class _AuthMethod2PageState extends State<AuthMethod2Page> with SingleTickerProv
             Center(
               child: FadeMessageBox(
                 message: _resultMessage!,
-                backgroundColor: _resultColor?.withOpacity(0.7) ?? Colors.black.withOpacity(0.7),
+                backgroundColor:
+                    _resultColor?.withValues(alpha: 0.7) ??
+                    Colors.black.withValues(alpha: 0.7),
                 textStyle: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 32,
                 ),
                 animation: _fadeAnimation,
-                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 32),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 12,
+                  horizontal: 32,
+                ),
                 borderRadius: BorderRadius.circular(12),
               ),
             ),

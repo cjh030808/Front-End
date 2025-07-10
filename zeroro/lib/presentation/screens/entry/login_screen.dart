@@ -156,9 +156,6 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
           ),
-
-
-          // TODO:서비스 약관 텍스트
         ],
       ),
     );

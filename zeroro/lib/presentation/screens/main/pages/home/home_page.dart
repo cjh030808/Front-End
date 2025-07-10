@@ -36,25 +36,6 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     super.dispose();
   }
 
-  void _showFadeMessage(String message) {
-    setState(() {
-      _resultMessage = message;
-    });
-
-    _fadeController.reset();
-    _fadeTimer?.cancel();
-
-    _fadeTimer = Timer(const Duration(seconds: 2), () {
-      _fadeController.forward().then((_) {
-        if (mounted) {
-          setState(() {
-            _resultMessage = null;
-          });
-        }
-      });
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -147,7 +128,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => const AuthMethod2Page()),
+                MaterialPageRoute(builder: (_) => const AuthQuizPage()),
               );
             },
           ),
