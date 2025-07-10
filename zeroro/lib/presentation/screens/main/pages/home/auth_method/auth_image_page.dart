@@ -18,7 +18,6 @@ class _AuthMethod1PageState extends State<AuthMethod1Page>
   final List<String> _selectedImages = [];
 
   bool _isAnalyzing = false;
-  String? _analysisResult;
   String? _warningMessage;
   String? _selectedSubCategory;
 
@@ -75,10 +74,8 @@ class _AuthMethod1PageState extends State<AuthMethod1Page>
       return;
     }
 
-    // 사진 있고, 카테고리 선택도 된 경우만 아래 로직 실행
     setState(() {
       _isAnalyzing = true;
-      _analysisResult = null;
     });
 
     await Future.delayed(const Duration(seconds: 2));
@@ -86,16 +83,7 @@ class _AuthMethod1PageState extends State<AuthMethod1Page>
 
     if (!mounted) return;
 
-    setState(() {
-      _isAnalyzing = false;
-      _analysisResult = fakeResult;
-    });
-
-    _startFadeOutTimer(() {
-      setState(() {
-        _analysisResult = null;
-      });
-    });
+    Navigator.pop(context, fakeResult);
   }
 
   void _showWarning(String message) {
@@ -272,19 +260,6 @@ class _AuthMethod1PageState extends State<AuthMethod1Page>
                   'AI가 분석 중입니다...',
                   style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
                   textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-          if (_analysisResult != null && !_isAnalyzing)
-            Positioned.fill(
-              child: Center(
-                child: FadeMessageBox(
-                  message: _analysisResult!,
-                  animation: _fadeAnimation,
-                  backgroundColor: AppColors.positive.withOpacity(0.8),
-                  textStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
-                  borderRadius: BorderRadius.circular(12),
-                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
                 ),
               ),
             ),
