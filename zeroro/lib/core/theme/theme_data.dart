@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'custom/custom_theme.dart';
 
@@ -7,6 +8,6 @@ class CustomThemeData {
         useMaterial3: true,
         colorScheme: CustomTheme.colorScheme,
         fontFamily: 'Pretendard',
-        textTheme: CustomTheme.textTheme,
+        textTheme: GoogleFonts.juaTextTheme(),
       );
 }
