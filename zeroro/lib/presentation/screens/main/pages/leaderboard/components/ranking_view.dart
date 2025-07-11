@@ -4,10 +4,10 @@ import 'rank_tile.dart';
 import 'podium_list.dart';
 import '../user_model.dart';
 
-//TODO: 유저 리스트는 bloc로 주입받아서 사용하도록 변경할 것 
+//TODO: 유저 리스트는 bloc로 주입받아서 사용하도록 변경할 것
 class RankingView extends StatefulWidget {
   const RankingView({super.key});
-  
+
   @override
   State<RankingView> createState() => _RankingViewState();
 }
@@ -50,6 +50,11 @@ class _RankingViewState extends State<RankingView> {
 
   @override
   Widget build(BuildContext context) {
+    // 데이터가 충분하지 않은 경우 처리
+    if (mockUsers.length < 3) {
+      return const Center(child: Text('충분한 리더보드 데이터가 없습니다.'));
+    }
+
     final podium = mockUsers.take(3).toList();
     final rest = mockUsers.skip(3).toList();
 
@@ -61,15 +66,21 @@ class _RankingViewState extends State<RankingView> {
         PodiumList(top3: podium, height: _podiumHeight),
         const SizedBox(height: 16),
         Expanded(
-          child: ListView.builder(
-            controller: _scrollController,
-            itemCount: rest.length,
-            itemBuilder: (context, index) {
-              final user = rest[index];
-              final rank = index + 4;
-              return RankTile(rank: rank, name: user.name, score: user.score);
-            },
-          ),
+          child: rest.isEmpty
+              ? const Center(child: Text('추가 순위 데이터가 없습니다.'))
+              : ListView.builder(
+                  controller: _scrollController,
+                  itemCount: rest.length,
+                  itemBuilder: (context, index) {
+                    final user = rest[index];
+                    final rank = index + 4;
+                    return RankTile(
+                      rank: rank,
+                      name: user.name,
+                      score: user.score,
+                    );
+                  },
+                ),
         ),
       ],
     );

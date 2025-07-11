@@ -68,6 +68,14 @@ class _PodiumListState extends State<PodiumList> with TickerProviderStateMixin {
     final heightRatio = widget.height / 220.0; // 기본 높이 대비 비율
     final profileSize = (50 * heightRatio).clamp(30.0, 50.0);
 
+    // top3 리스트가 3개 미만인 경우 에러 방지
+    if (widget.top3.length < 3) {
+      return SizedBox(
+        height: widget.height,
+        child: const Center(child: Text('리더보드 데이터가 부족합니다.')),
+      );
+    }
+
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
       height: widget.height,
@@ -77,19 +85,19 @@ class _PodiumListState extends State<PodiumList> with TickerProviderStateMixin {
           return Row(
             children: [
               _buildAnimatedPodiumItem(
-                user: widget.top3[2],
+                user: widget.top3[2], // 3등
                 topMargin: 60 * heightRatio,
                 animation: _thirdPlaceAnimation,
                 profileSize: profileSize,
               ),
               _buildAnimatedPodiumItem(
-                user: widget.top3[0],
+                user: widget.top3[0], // 1등
                 topMargin: 40 * heightRatio,
                 animation: _firstPlaceAnimation,
                 profileSize: profileSize,
               ),
               _buildAnimatedPodiumItem(
-                user: widget.top3[1],
+                user: widget.top3[1], // 2등
                 topMargin: 50 * heightRatio,
                 animation: _secondPlaceAnimation,
                 profileSize: profileSize,
