@@ -18,6 +18,7 @@ dependencies:
   animations: ^2.0.11
   rive: ^0.13.20
   flutter_speed_dial: ^7.0.0
+  google_fonts: ^6.2.1
 
   #architecture
   flutter_bloc: ^9.1.1
@@ -56,7 +57,6 @@ flutter:
     - .env
     - assets/images/
     - assets/animation/zeroro4.riv
-
   # fonts:
   #   - family: Schyler
   #     fonts:
