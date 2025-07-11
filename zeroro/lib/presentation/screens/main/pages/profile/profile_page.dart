@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../../domain/model/post/post.model.dart';
 import '../community/commponents/post_widget.dart';
 import 'components/profile_info_section.dart';
 import 'components/chart_section.dart';
@@ -58,9 +59,15 @@ class ProfilePage extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(), // 상위 스크롤뷰에서 처리
         itemCount: 24,
         itemBuilder: (context, index) => PostWidget(
-          userName: '김오띠',
-          content: '게시글 내용 ${index + 1}',
-          imageUrl: null,
+          post: Post(
+            id: index,
+            title: '게시글 $index',
+            content: '게시글 $index 내용',
+            likesCount: 0,
+            createdAt: DateTime.now(),
+            userId: '10dcf52e-950f-4f39-98fc-b3a8fcbb320d',
+            username: '김오띠',
+          ),
         ),
       ),
     );

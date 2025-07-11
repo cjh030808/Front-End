@@ -1,8 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import '../../../domain/model/comment/comment.model.dart';
-import '../../../domain/model/post/post.model.dart';
-import '../../dto/community/post_list_response.dart';
+import '../../dto/community/post.dto.dart';
 
 part 'community.api.g.dart';
 
@@ -12,13 +11,13 @@ abstract class CommunityApi {
 
   // 게시글
   @GET('/posts')
-  Future<PostListResponse> getPosts(@Query('offset') int offset);
+  Future<PostListDto> getPosts(@Query('offset') int offset);
 
   @POST('/posts')
-  Future<Post> createPost(@Body() Post post);
+  Future<PostDto> createPost(@Body() CreatePostDto post);
 
   @PUT('/posts/{post_id}')
-  Future<Post> updatePost(@Path('post_id') int postId, @Body() Post post);
+  Future<PostDto> updatePost(@Path('post_id') int postId, @Body() UpdatePostDto post);
 
   @DELETE('/posts/{post_id}')
   Future<void> deletePost(@Path('post_id') int postId);

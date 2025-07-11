@@ -1,20 +1,43 @@
 import 'package:flutter/material.dart';
-import 'like_button.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:zeroro/domain/model/post/post.model.dart';
+import 'package:zeroro/presentation/routes/route_path.dart';
+import '../bloc/community_bloc.dart';
 import 'comment_dialog.dart';
+import 'like_button.dart';
 
 class PostWidget extends StatelessWidget {
-  final String userName;
-  final String content;
-  final String? imageUrl;
-  final int initialLikeCount;
+  final Post post;
 
-  const PostWidget({
-    super.key,
-    required this.userName,
-    required this.content,
-    this.imageUrl,
-    this.initialLikeCount = 0,
-  });
+  const PostWidget({super.key, required this.post});
+
+  void _showDeleteDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('게시글 삭제'),
+        content: const Text('정말로 이 게시글을 삭제하시겠습니까?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(),
+            child: const Text('취소'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(dialogContext).pop();
+              context.read<CommunityBloc>().add(DeletePost(postId: post.id));
+            },
+            child: const Text('삭제', style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showEditPostScreen(BuildContext context) {
+    context.push('${RoutePath.newPost}?editMode=true', extra: post);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,20 +59,56 @@ class PostWidget extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  userName,
+                  post.username,
                   style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                const Spacer(),
+                PopupMenuButton<String>(
+                  onSelected: (value) {
+                    switch (value) {
+                      case 'edit':
+                        _showEditPostScreen(context);
+                        break;
+                      case 'delete':
+                        _showDeleteDialog(context);
+                        break;
+                    }
+                  },
+                  itemBuilder: (BuildContext context) => [
+                    const PopupMenuItem<String>(
+                      value: 'edit',
+                      child: Row(
+                        children: [
+                          Icon(Icons.edit, size: 18),
+                          SizedBox(width: 8),
+                          Text('수정하기'),
+                        ],
+                      ),
+                    ),
+                    const PopupMenuItem<String>(
+                      value: 'delete',
+                      child: Row(
+                        children: [
+                          Icon(Icons.delete, size: 18, color: Colors.red),
+                          SizedBox(width: 8),
+                          Text('삭제하기', style: TextStyle(color: Colors.red)),
+                        ],
+                      ),
+                    ),
+                  ],
+                  child: const Icon(Icons.more_vert),
                 ),
               ],
             ),
             const SizedBox(height: 12),
-            if (content.isNotEmpty)
-              Text(content, style: const TextStyle(fontSize: 16)),
+            if (post.content.isNotEmpty)
+              Text(post.content, style: const TextStyle(fontSize: 16)),
             const SizedBox(height: 12),
-            if (imageUrl != null)
+            if (post.imageUrl != null)
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Image.network(
-                  imageUrl!,
+                  post.imageUrl!,
                   width: double.infinity,
                   fit: BoxFit.contain,
                 ),
@@ -57,7 +116,7 @@ class PostWidget extends StatelessWidget {
             const SizedBox(height: 12),
             Row(
               children: [
-                LikeButton(initialCount: initialLikeCount), // 하트 버튼
+                LikeButton(initialCount: post.likesCount),
                 const SizedBox(width: 24),
                 IconButton(
                   icon: const Icon(Icons.comment_outlined),

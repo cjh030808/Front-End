@@ -13,16 +13,22 @@ class LoadPosts extends CommunityEvent {
 }
 
 class CreatePost extends CommunityEvent {
-  final Post post;
+  final String userId;
+  final String title;
+  final String content;
+  final String? imageUrl;
 
-  CreatePost({required this.post});
+  CreatePost({required this.userId, required this.title, required this.content, this.imageUrl});
 }
 
 class UpdatePost extends CommunityEvent {
   final int postId;
-  final Post post;
+  final String title;
+  final String content;
+  final int likesCount;
+  final String? imageUrl;
 
-  UpdatePost({required this.post, required this.postId});
+  UpdatePost({required this.postId, required this.title, required this.content, required this.likesCount, this.imageUrl});
 }
 
 class DeletePost extends CommunityEvent {

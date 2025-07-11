@@ -40,12 +40,7 @@ class CommunityPage extends StatelessWidget {
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: state.postList.length,
                           itemBuilder: (context, index) {
-                            return PostWidget(
-                              userName: state.postList[index].userName,
-                              content: state.postList[index].content,
-                              imageUrl: state.postList[index].imageUrl,
-                              initialLikeCount: state.postList[index].likeCount,
-                            );
+                            return PostWidget(post: state.postList[index]);
                           },
                         )
                       : const SizedBox.shrink();

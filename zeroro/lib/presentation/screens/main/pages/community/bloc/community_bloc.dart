@@ -36,7 +36,7 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState> {
     try {
       emit(state.copyWith(status: Status.loading));
 
-      final posts = await _repository.getPosts(state.offset);
+      final posts = await _repository.getPosts(offset: state.offset);
 
       emit(
         state.copyWith(
@@ -63,7 +63,7 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState> {
     try {
       emit(state.copyWith(status: Status.loading));
 
-      final posts = await _repository.getPosts(state.offset);
+      final posts = await _repository.getPosts(offset: state.offset);
 
       emit(
         state.copyWith(
@@ -88,7 +88,7 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState> {
     Emitter<CommunityState> emit,
   ) async {
     try {
-      final newPost = await _repository.createPost(event.post);
+      final newPost = await _repository.createPost(userId: event.userId, title: event.title, content: event.content, imageUrl: event.imageUrl);
 
       emit(
         state.copyWith(
@@ -113,8 +113,11 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState> {
   ) async {
     try {
       final updatedPost = await _repository.updatePost(
-        event.postId,
-        event.post,
+        postId: event.postId,
+        title: event.title,
+        content: event.content,
+        likesCount: event.likesCount,
+        imageUrl: event.imageUrl,
       );
 
       final updatedPosts = state.postList.map((post) {
@@ -138,7 +141,7 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState> {
     Emitter<CommunityState> emit,
   ) async {
     try {
-      await _repository.deletePost(event.postId);
+      await _repository.deletePost(postId: event.postId);
 
       final updatedPosts = state.postList
           .where((post) => post.id != event.postId)
@@ -161,7 +164,7 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState> {
     Emitter<CommunityState> emit,
   ) async {
     try {
-      final comments = await _repository.getComments(event.postId);
+      final comments = await _repository.getComments(postId: event.postId);
       emit(state.copyWith(commentList: comments));
     } catch (error) {
       CustomLogger.logger.e(error);
@@ -180,8 +183,8 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState> {
   ) async {
     try {
       final newComment = await _repository.createComment(
-        event.postId,
-        event.comment,
+        postId: event.postId,
+        comment: event.comment,
       );
 
       emit(
@@ -207,9 +210,9 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState> {
   ) async {
     try {
       final updatedComment = await _repository.updateComment(
-        event.postId,
-        event.commentId,
-        event.comment,
+        postId: event.postId,
+        commentId: event.commentId,
+        comment: event.comment,
       );
 
       final updatedComments = state.commentList.map((comment) {
@@ -233,7 +236,7 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState> {
     Emitter<CommunityState> emit,
   ) async {
     try {
-      await _repository.deleteComment(event.postId, event.commentId);
+      await _repository.deleteComment(postId: event.postId, commentId: event.commentId);
 
       final updatedComments = state.commentList
           .where((comment) => comment.id != event.commentId)

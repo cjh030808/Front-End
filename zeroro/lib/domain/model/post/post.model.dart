@@ -7,15 +7,15 @@ part 'post.model.g.dart';
 abstract class Post with _$Post {
   const factory Post({
     required int id,
-    required String uid,
+    required String userId,
+    required String title,
     required String content,
     String? imageUrl,
-    required int likeCount,
+    required int likesCount,
     required DateTime createdAt,
-    required String title,
     String? userImg,
-    required String userName,
+    required String username,
   }) = _Post;
 
-  factory Post.fromJson(Map<String, Object?> json) => _$PostFromJson(json);
+  factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
 }

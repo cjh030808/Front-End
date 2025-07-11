@@ -9,7 +9,6 @@ part of 'community.api.dart';
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
 
 class _CommunityApi implements CommunityApi {
-  // ignore: unused_element_parameter
   _CommunityApi(this._dio, {this.baseUrl, this.errorLogger}) {
     baseUrl ??= 'http://10.0.2.2:8000/api/v1/community';
   }
@@ -21,12 +20,12 @@ class _CommunityApi implements CommunityApi {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<PostListResponse> getPosts(int offset) async {
+  Future<PostListDto> getPosts(int offset) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'offset': offset};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<PostListResponse>(
+    final _options = _setStreamType<PostListDto>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -37,9 +36,9 @@ class _CommunityApi implements CommunityApi {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late PostListResponse _value;
+    late PostListDto _value;
     try {
-      _value = PostListResponse.fromJson(_result.data!);
+      _value = PostListDto.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -48,12 +47,13 @@ class _CommunityApi implements CommunityApi {
   }
 
   @override
-  Future<Post> createPost(Post post) async {
+  Future<PostDto> createPost(CreatePostDto post) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = post;
-    final _options = _setStreamType<Post>(
+    final _data = <String, dynamic>{};
+    _data.addAll(post.toJson());
+    final _options = _setStreamType<PostDto>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -64,9 +64,9 @@ class _CommunityApi implements CommunityApi {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late Post _value;
+    late PostDto _value;
     try {
-      _value = Post.fromJson(_result.data!);
+      _value = PostDto.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -75,12 +75,13 @@ class _CommunityApi implements CommunityApi {
   }
 
   @override
-  Future<Post> updatePost(int postId, Post post) async {
+  Future<PostDto> updatePost(int postId, UpdatePostDto post) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = post;
-    final _options = _setStreamType<Post>(
+    final _data = <String, dynamic>{};
+    _data.addAll(post.toJson());
+    final _options = _setStreamType<PostDto>(
       Options(method: 'PUT', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -91,9 +92,9 @@ class _CommunityApi implements CommunityApi {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late Post _value;
+    late PostDto _value;
     try {
-      _value = Post.fromJson(_result.data!);
+      _value = PostDto.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

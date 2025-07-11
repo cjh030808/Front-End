@@ -1,9 +1,11 @@
 import 'package:injectable/injectable.dart';
+import 'package:zeroro/core/logger.dart';
 
 import '../../domain/model/comment/comment.model.dart';
 import '../../domain/model/post/post.model.dart';
 import '../../domain/repository/community.repository.dart';
 import '../data_source/community/community.api.dart';
+import '../dto/community/post.dto.dart';
 
 @Singleton(as: CommunityRepository)
 class CommunityRepositoryImpl implements CommunityRepository {
@@ -12,7 +14,7 @@ class CommunityRepositoryImpl implements CommunityRepository {
   CommunityRepositoryImpl(this._api);
 
   @override
-  Future<List<Post>> getPosts(int offset) async {
+  Future<List<Post>> getPosts({required int offset}) async {
     try {
       final response = await _api.getPosts(offset);
       return response.posts.map((postDto) => postDto.toDomain()).toList();
@@ -22,25 +24,50 @@ class CommunityRepositoryImpl implements CommunityRepository {
   }
 
   @override
-  Future<Post> createPost(Post post) async {
+  Future<Post> createPost({
+    required String userId,
+    required String title,
+    required String content,
+    String? imageUrl,
+  }) async {
     try {
-      return await _api.createPost(post);
+      final response = await _api.createPost(CreatePostDto(
+        userId: userId,
+        title: title,
+        content: content,
+        imageUrl: imageUrl,
+      ));
+      CustomLogger.logger.d(response.toDomain());
+      return response.toDomain();
     } catch (e) {
       throw Exception('게시글 작성 중 오류가 발생했습니다: $e');
     }
   }
 
   @override
-  Future<Post> updatePost(int postId, Post post) async {
+  Future<Post> updatePost({
+    required int postId,
+    required String title,
+    required String content,
+    required int likesCount,
+    String? imageUrl,
+  }) async {
     try {
-      return await _api.updatePost(postId, post);
+      final response = await _api.updatePost(postId, UpdatePostDto(
+        title: title,
+        content: content,
+        likesCount: likesCount,
+        imageUrl: imageUrl,
+      ));
+
+      return response.toDomain();
     } catch (e) {
       throw Exception('게시글 수정 중 오류가 발생했습니다: $e');
     }
   }
 
   @override
-  Future<void> deletePost(int postId) async {
+  Future<void> deletePost({required int postId}) async {
     try {
       await _api.deletePost(postId);
     } catch (e) {
@@ -49,7 +76,7 @@ class CommunityRepositoryImpl implements CommunityRepository {
   }
 
   @override
-  Future<List<Comment>> getComments(int postId) async {
+  Future<List<Comment>> getComments({required int postId}) async {
     try {
       return await _api.getComments(postId);
     } catch (e) {
@@ -58,7 +85,7 @@ class CommunityRepositoryImpl implements CommunityRepository {
   }
 
   @override
-  Future<Comment> createComment(int postId, Comment comment) async {
+  Future<Comment> createComment({required int postId, required Comment comment}) async {
     try {
       return await _api.createComment(postId, comment);
     } catch (e) {
@@ -67,11 +94,11 @@ class CommunityRepositoryImpl implements CommunityRepository {
   }
 
   @override
-  Future<Comment> updateComment(
-    int postId,
-    int commentId,
-    Comment comment,
-  ) async {
+  Future<Comment> updateComment({
+    required int postId,
+    required int commentId,
+    required Comment comment,
+  }) async {
     try {
       return await _api.updateComment(postId, commentId, comment.content);
     } catch (e) {
@@ -80,7 +107,7 @@ class CommunityRepositoryImpl implements CommunityRepository {
   }
 
   @override
-  Future<void> deleteComment(int postId, int commentId) async {
+  Future<void> deleteComment({required int postId, required int commentId}) async {
     try {
       await _api.deleteComment(postId, commentId);
     } catch (e) {

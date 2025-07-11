@@ -8,24 +8,24 @@ part of 'post.model.dart';
 
 _Post _$PostFromJson(Map<String, dynamic> json) => _Post(
   id: (json['id'] as num).toInt(),
-  uid: json['uid'] as String,
+  userId: json['userId'] as String,
+  title: json['title'] as String,
   content: json['content'] as String,
   imageUrl: json['imageUrl'] as String?,
-  likeCount: (json['likeCount'] as num).toInt(),
+  likesCount: (json['likesCount'] as num).toInt(),
   createdAt: DateTime.parse(json['createdAt'] as String),
-  title: json['title'] as String,
   userImg: json['userImg'] as String?,
-  userName: json['userName'] as String,
+  username: json['username'] as String,
 );
 
 Map<String, dynamic> _$PostToJson(_Post instance) => <String, dynamic>{
   'id': instance.id,
-  'uid': instance.uid,
+  'userId': instance.userId,
+  'title': instance.title,
   'content': instance.content,
   'imageUrl': instance.imageUrl,
-  'likeCount': instance.likeCount,
+  'likesCount': instance.likesCount,
   'createdAt': instance.createdAt.toIso8601String(),
-  'title': instance.title,
   'userImg': instance.userImg,
-  'userName': instance.userName,
+  'username': instance.username,
 };
