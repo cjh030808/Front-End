@@ -4,31 +4,42 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/constants.dart';
 import '../../../core/theme/constant/app_color.dart';
+import '../../../domain/model/post/post.model.dart';
 import '../main/pages/community/bloc/community_bloc.dart';
 
-class NewPostScreen extends StatelessWidget {
-  const NewPostScreen({super.key});
+class EditPostScreen extends StatelessWidget {
+  final Post post;
+  const EditPostScreen({super.key, required this.post});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: BlocProvider.of<CommunityBloc>(context),
-      child: const NewPostScreenView(),
+      child: EditPostScreenView(post: post),
     );
   }
 }
 
-class NewPostScreenView extends StatefulWidget {
-  const NewPostScreenView({super.key});
+class EditPostScreenView extends StatefulWidget {
+  final Post post;
+  const EditPostScreenView({super.key, required this.post});
 
   @override
-  State<NewPostScreenView> createState() => _NewPostScreenViewState();
+  State<EditPostScreenView> createState() => _EditPostScreenViewState();
 }
 
-class _NewPostScreenViewState extends State<NewPostScreenView> {
+class _EditPostScreenViewState extends State<EditPostScreenView> {
   final _titleController = TextEditingController();
   final _contentController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    // 기존 게시글 데이터로 컨트롤러 초기화
+    _titleController.text = widget.post.title;
+    _contentController.text = widget.post.content;
+  }
 
   @override
   void dispose() {
@@ -57,7 +68,7 @@ class _NewPostScreenViewState extends State<NewPostScreenView> {
               onPressed: () => context.pop(),
             ),
             title: const Text(
-              '게시글 작성',
+              '게시글 수정',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
@@ -74,10 +85,11 @@ class _NewPostScreenViewState extends State<NewPostScreenView> {
                     onPressed: () {
                       if (_formKey.currentState?.validate() ?? false) {
                         context.read<CommunityBloc>().add(
-                          CreatePost(
-                            userId: "10dcf52e-950f-4f39-98fc-b3a8fcbb320d",
+                          UpdatePost(
+                            postId: widget.post.id,
                             title: _titleController.text,
                             content: _contentController.text,
+                            likesCount: widget.post.likesCount,
                           ),
                         );
                       }

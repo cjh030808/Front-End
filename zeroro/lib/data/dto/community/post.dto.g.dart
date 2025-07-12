@@ -16,14 +16,14 @@ Map<String, dynamic> _$PostListDtoToJson(PostListDto instance) =>
     <String, dynamic>{'posts': instance.posts};
 
 PostDto _$PostDtoFromJson(Map<String, dynamic> json) => PostDto(
-  id: (json['id'] as num).toInt(),
-  userId: json['user_id'] as String,
-  content: json['content'] as String,
-  imageUrl: json['image_url'] as String?,
-  likesCount: (json['likes_count'] as num).toInt(),
-  createdAt: json['created_at'] as String,
-  title: json['title'] as String,
-  profiles: json['profiles'] as Map<String, dynamic>,
+  id: PostDto._intFromJson(json['id']),
+  userId: PostDto._stringFromJson(json['user_id']),
+  content: PostDto._stringFromJson(json['content']),
+  imageUrl: PostDto._nullableStringFromJson(json['image_url']),
+  likesCount: PostDto._intFromJson(json['likes_count']),
+  createdAt: PostDto._dateTimeFromJson(json['created_at']),
+  title: PostDto._stringFromJson(json['title']),
+  profiles: PostDto._mapFromJson(json['profiles']),
 );
 
 Map<String, dynamic> _$PostDtoToJson(PostDto instance) => <String, dynamic>{
@@ -32,7 +32,7 @@ Map<String, dynamic> _$PostDtoToJson(PostDto instance) => <String, dynamic>{
   'content': instance.content,
   'image_url': instance.imageUrl,
   'likes_count': instance.likesCount,
-  'created_at': instance.createdAt,
+  'created_at': instance.createdAt.toIso8601String(),
   'title': instance.title,
   'profiles': instance.profiles,
 };

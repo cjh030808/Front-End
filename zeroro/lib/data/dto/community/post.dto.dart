@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 import '../../../domain/model/post/post.model.dart';
 
@@ -17,18 +18,21 @@ class PostListDto {
 
 @JsonSerializable()
 class PostDto {
+  @JsonKey(name: 'id', fromJson: _intFromJson)
   final int id;
-  @JsonKey(name: 'user_id')
+  @JsonKey(name: 'user_id', fromJson: _stringFromJson)
   final String userId;
+  @JsonKey(fromJson: _stringFromJson)
   final String content;
-  @JsonKey(name: 'image_url')
+  @JsonKey(name: 'image_url', fromJson: _nullableStringFromJson)
   final String? imageUrl;
-  @JsonKey(name: 'likes_count')
+  @JsonKey(name: 'likes_count', fromJson: _intFromJson)
   final int likesCount;
-  @JsonKey(name: 'created_at')
-  final String createdAt;
+  @JsonKey(name: 'created_at', fromJson: _dateTimeFromJson)
+  final DateTime createdAt;
+  @JsonKey(fromJson: _stringFromJson)
   final String title;
-  @JsonKey(name: 'profiles')
+  @JsonKey(name: 'profiles', fromJson: _mapFromJson)
   final Map<String, dynamic> profiles;
 
   PostDto({
@@ -47,6 +51,48 @@ class PostDto {
 
   Map<String, dynamic> toJson() => _$PostDtoToJson(this);
 
+  // null 안전한 int 변환 함수
+  static int _intFromJson(dynamic value) {
+    if (value == null) return 0;
+    if (value is int) return value;
+    if (value is num) return value.toInt();
+    if (value is String) return int.tryParse(value) ?? 0;
+    return 0;
+  }
+
+  // null 안전한 String 변환 함수
+  static String _stringFromJson(dynamic value) {
+    if (value == null) return '';
+    return value.toString();
+  }
+
+  // null 안전한 nullable String 변환 함수
+  static String? _nullableStringFromJson(dynamic value) {
+    if (value == null) return null;
+    if (value.toString().isEmpty) return null;
+    return value.toString();
+  }
+
+  // null 안전한 DateTime 변환 함수
+  static DateTime _dateTimeFromJson(dynamic value) {
+    if (value == null) return DateTime.now();
+    if (value is String) {
+      try {
+        return DateTime.parse(value);
+      } catch (e) {
+        return DateTime.now();
+      }
+    }
+    return DateTime.now();
+  }
+
+  // null 안전한 Map 변환 함수
+  static Map<String, dynamic> _mapFromJson(dynamic value) {
+    if (value == null) return {};
+    if (value is Map<String, dynamic>) return value;
+    return {};
+  }
+
   // DTO를 Domain Model로 변환하는 mapper
   Post toDomain() {
     return Post(
@@ -55,11 +101,22 @@ class PostDto {
       content: content,
       imageUrl: imageUrl,
       likesCount: likesCount,
-      createdAt: DateTime.parse(createdAt),
+      createdAt: _formatDateTime(createdAt),
       title: title,
-      userImg: profiles['user_img'] as String?,
-      username: profiles['username'] as String? ?? 'Guest',
+      userImg: _getProfileValue('user_img'),
+      username: _getProfileValue('username') ?? 'Guest',
     );
+  }
+
+  // profiles 맵에서 안전하게 값을 가져오는 헬퍼 함수
+  String? _getProfileValue(String key) {
+    final value = profiles[key];
+    if (value == null) return null;
+    return value.toString();
+  }
+
+  String _formatDateTime(DateTime dateTime) {
+    return DateFormat('yyyy-MM-dd HH:mm:ss').format(dateTime);
   }
 }
 
@@ -106,5 +163,3 @@ class UpdatePostDto {
 
   Map<String, dynamic> toJson() => _$UpdatePostDtoToJson(this);
 }
-
-

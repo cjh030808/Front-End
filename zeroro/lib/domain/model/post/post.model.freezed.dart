@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Post {
 
- int get id; String get userId; String get title; String get content; String? get imageUrl; int get likesCount; DateTime get createdAt; String? get userImg; String get username;
+ int get id; String get userId; String get title; String get content; String? get imageUrl; int get likesCount; String get createdAt; String? get userImg; String get username;
 /// Create a copy of Post
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $PostCopyWith<$Res>  {
   factory $PostCopyWith(Post value, $Res Function(Post) _then) = _$PostCopyWithImpl;
 @useResult
 $Res call({
- int id, String userId, String title, String content, String? imageUrl, int likesCount, DateTime createdAt, String? userImg, String username
+ int id, String userId, String title, String content, String? imageUrl, int likesCount, String createdAt, String? userImg, String username
 });
 
 
@@ -74,7 +74,7 @@ as String,content: null == content ? _self.content : content // ignore: cast_nul
 as String,imageUrl: freezed == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
 as String?,likesCount: null == likesCount ? _self.likesCount : likesCount // ignore: cast_nullable_to_non_nullable
 as int,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
-as DateTime,userImg: freezed == userImg ? _self.userImg : userImg // ignore: cast_nullable_to_non_nullable
+as String,userImg: freezed == userImg ? _self.userImg : userImg // ignore: cast_nullable_to_non_nullable
 as String?,username: null == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
 as String,
   ));
@@ -161,7 +161,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String userId,  String title,  String content,  String? imageUrl,  int likesCount,  DateTime createdAt,  String? userImg,  String username)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String userId,  String title,  String content,  String? imageUrl,  int likesCount,  String createdAt,  String? userImg,  String username)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Post() when $default != null:
 return $default(_that.id,_that.userId,_that.title,_that.content,_that.imageUrl,_that.likesCount,_that.createdAt,_that.userImg,_that.username);case _:
@@ -182,7 +182,7 @@ return $default(_that.id,_that.userId,_that.title,_that.content,_that.imageUrl,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String userId,  String title,  String content,  String? imageUrl,  int likesCount,  DateTime createdAt,  String? userImg,  String username)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String userId,  String title,  String content,  String? imageUrl,  int likesCount,  String createdAt,  String? userImg,  String username)  $default,) {final _that = this;
 switch (_that) {
 case _Post():
 return $default(_that.id,_that.userId,_that.title,_that.content,_that.imageUrl,_that.likesCount,_that.createdAt,_that.userImg,_that.username);case _:
@@ -202,7 +202,7 @@ return $default(_that.id,_that.userId,_that.title,_that.content,_that.imageUrl,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String userId,  String title,  String content,  String? imageUrl,  int likesCount,  DateTime createdAt,  String? userImg,  String username)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String userId,  String title,  String content,  String? imageUrl,  int likesCount,  String createdAt,  String? userImg,  String username)?  $default,) {final _that = this;
 switch (_that) {
 case _Post() when $default != null:
 return $default(_that.id,_that.userId,_that.title,_that.content,_that.imageUrl,_that.likesCount,_that.createdAt,_that.userImg,_that.username);case _:
@@ -226,7 +226,7 @@ class _Post implements Post {
 @override final  String content;
 @override final  String? imageUrl;
 @override final  int likesCount;
-@override final  DateTime createdAt;
+@override final  String createdAt;
 @override final  String? userImg;
 @override final  String username;
 
@@ -263,7 +263,7 @@ abstract mixin class _$PostCopyWith<$Res> implements $PostCopyWith<$Res> {
   factory _$PostCopyWith(_Post value, $Res Function(_Post) _then) = __$PostCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String userId, String title, String content, String? imageUrl, int likesCount, DateTime createdAt, String? userImg, String username
+ int id, String userId, String title, String content, String? imageUrl, int likesCount, String createdAt, String? userImg, String username
 });
 
 
@@ -289,7 +289,7 @@ as String,content: null == content ? _self.content : content // ignore: cast_nul
 as String,imageUrl: freezed == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
 as String?,likesCount: null == likesCount ? _self.likesCount : likesCount // ignore: cast_nullable_to_non_nullable
 as int,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
-as DateTime,userImg: freezed == userImg ? _self.userImg : userImg // ignore: cast_nullable_to_non_nullable
+as String,userImg: freezed == userImg ? _self.userImg : userImg // ignore: cast_nullable_to_non_nullable
 as String?,username: null == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
 as String,
   ));

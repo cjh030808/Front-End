@@ -64,7 +64,7 @@ class ProfilePage extends StatelessWidget {
             title: '게시글 $index',
             content: '게시글 $index 내용',
             likesCount: 0,
-            createdAt: DateTime.now(),
+            createdAt: DateTime.now().toString(),
             userId: '10dcf52e-950f-4f39-98fc-b3a8fcbb320d',
             username: '김오띠',
           ),

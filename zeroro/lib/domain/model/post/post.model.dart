@@ -12,7 +12,7 @@ abstract class Post with _$Post {
     required String content,
     String? imageUrl,
     required int likesCount,
-    required DateTime createdAt,
+    required String createdAt,
     String? userImg,
     required String username,
   }) = _Post;

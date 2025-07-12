@@ -6,7 +6,7 @@ part of 'community.api.dart';
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter
 
 class _CommunityApi implements CommunityApi {
   _CommunityApi(this._dio, {this.baseUrl, this.errorLogger}) {
@@ -122,12 +122,12 @@ class _CommunityApi implements CommunityApi {
   }
 
   @override
-  Future<List<Comment>> getComments(int postId) async {
+  Future<CommentListDto> getComments(int postId) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<Comment>>(
+    final _options = _setStreamType<CommentListDto>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -137,12 +137,10 @@ class _CommunityApi implements CommunityApi {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<List<dynamic>>(_options);
-    late List<Comment> _value;
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late CommentListDto _value;
     try {
-      _value = _result.data!
-          .map((dynamic i) => Comment.fromJson(i as Map<String, dynamic>))
-          .toList();
+      _value = CommentListDto.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -151,12 +149,13 @@ class _CommunityApi implements CommunityApi {
   }
 
   @override
-  Future<Comment> createComment(int postId, Comment comment) async {
+  Future<CommentDto> createComment(int postId, CreateCommentDto comment) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = comment;
-    final _options = _setStreamType<Comment>(
+    final _data = <String, dynamic>{};
+    _data.addAll(comment.toJson());
+    final _options = _setStreamType<CommentDto>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -167,9 +166,9 @@ class _CommunityApi implements CommunityApi {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late Comment _value;
+    late CommentDto _value;
     try {
-      _value = Comment.fromJson(_result.data!);
+      _value = CommentDto.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -178,7 +177,7 @@ class _CommunityApi implements CommunityApi {
   }
 
   @override
-  Future<Comment> updateComment(
+  Future<CommentDto> updateComment(
     int postId,
     int commentId,
     String commentData,
@@ -187,7 +186,7 @@ class _CommunityApi implements CommunityApi {
     final queryParameters = <String, dynamic>{r'comment_data': commentData};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<Comment>(
+    final _options = _setStreamType<CommentDto>(
       Options(method: 'PUT', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -198,9 +197,9 @@ class _CommunityApi implements CommunityApi {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late Comment _value;
+    late CommentDto _value;
     try {
-      _value = Comment.fromJson(_result.data!);
+      _value = CommentDto.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

@@ -6,10 +6,10 @@ class PostsInitialized extends CommunityEvent {
   PostsInitialized();
 }
 
-class LoadPosts extends CommunityEvent {
+class LoadMorePosts extends CommunityEvent {
   final int offset;
 
-  LoadPosts({required this.offset});
+  LoadMorePosts({required this.offset});
 }
 
 class CreatePost extends CommunityEvent {
@@ -18,7 +18,12 @@ class CreatePost extends CommunityEvent {
   final String content;
   final String? imageUrl;
 
-  CreatePost({required this.userId, required this.title, required this.content, this.imageUrl});
+  CreatePost({
+    required this.userId,
+    required this.title,
+    required this.content,
+    this.imageUrl,
+  });
 }
 
 class UpdatePost extends CommunityEvent {
@@ -28,7 +33,13 @@ class UpdatePost extends CommunityEvent {
   final int likesCount;
   final String? imageUrl;
 
-  UpdatePost({required this.postId, required this.title, required this.content, required this.likesCount, this.imageUrl});
+  UpdatePost({
+    required this.postId,
+    required this.title,
+    required this.content,
+    required this.likesCount,
+    this.imageUrl,
+  });
 }
 
 class DeletePost extends CommunityEvent {
@@ -37,10 +48,14 @@ class DeletePost extends CommunityEvent {
   DeletePost({required this.postId});
 }
 
-class LoadComments extends CommunityEvent {
+class CommentsInitialized extends CommunityEvent {
+  CommentsInitialized();
+}
+
+class LoadMoreComments extends CommunityEvent {
   final int postId;
 
-  LoadComments({required this.postId});
+  LoadMoreComments({required this.postId});
 }
 
 class CreateComment extends CommunityEvent {

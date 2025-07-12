@@ -9,15 +9,19 @@ part of 'comment.model.dart';
 _Comment _$CommentFromJson(Map<String, dynamic> json) => _Comment(
   id: (json['id'] as num).toInt(),
   postId: (json['postId'] as num).toInt(),
-  uid: json['uid'] as String,
+  userId: json['userId'] as String,
   content: json['content'] as String,
   createdAt: DateTime.parse(json['createdAt'] as String),
+  userImg: json['userImg'] as String?,
+  username: json['username'] as String,
 );
 
 Map<String, dynamic> _$CommentToJson(_Comment instance) => <String, dynamic>{
   'id': instance.id,
   'postId': instance.postId,
-  'uid': instance.uid,
+  'userId': instance.userId,
   'content': instance.content,
   'createdAt': instance.createdAt.toIso8601String(),
+  'userImg': instance.userImg,
+  'username': instance.username,
 };

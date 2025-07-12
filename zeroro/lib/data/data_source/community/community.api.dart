@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
-import '../../../domain/model/comment/comment.model.dart';
+import '../../dto/community/comment.dto.dart';
 import '../../dto/community/post.dto.dart';
 
 part 'community.api.g.dart';
@@ -24,16 +24,16 @@ abstract class CommunityApi {
 
   // 댓글
   @GET('/posts/{post_id}/comments')
-  Future<List<Comment>> getComments(@Path('post_id') int postId);
+  Future<CommentListDto> getComments(@Path('post_id') int postId);
 
   @POST('/posts/{post_id}/comments')
-  Future<Comment> createComment(
+  Future<CommentDto> createComment(
     @Path('post_id') int postId,
-    @Body() Comment comment,
+    @Body() CreateCommentDto comment,
   );
 
   @PUT('/posts/{post_id}/comments/{comment_id}')
-  Future<Comment> updateComment(
+  Future<CommentDto> updateComment(
     @Path('post_id') int postId,
     @Path('comment_id') int commentId,
     @Query('comment_data') String commentData,
