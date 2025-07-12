@@ -72,7 +72,9 @@ class LoginScreen extends StatelessWidget {
                   } else {
                     ScaffoldMessenger.of(
                       context,
-                    ).showSnackBar(SnackBar(content: Text('로그인 세션이 없습니다.')));
+                    ).showSnackBar(
+                      const SnackBar(content: Text('로그인 세션이 없습니다.')),
+                    );
                   }
                 } catch (e) {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -81,8 +83,10 @@ class LoginScreen extends StatelessWidget {
                 }
               },
               style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
+                  side: BorderSide(color: Colors.grey.shade400, width: 1),
                 ),
                 elevation: 2,
               ),
@@ -133,11 +137,12 @@ class LoginScreen extends StatelessWidget {
                 context.go(RoutePath.main);
               },
               style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50),
+                  side: BorderSide(color: Colors.grey.shade400, width: 1),
                 ),
                 elevation: 2,
-                backgroundColor: Colors.white,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
