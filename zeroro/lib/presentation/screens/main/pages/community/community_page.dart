@@ -15,7 +15,6 @@ class CommunityPage extends StatefulWidget {
 }
 
 class _CommunityPageState extends State<CommunityPage> {
-  
   @override
   void initState() {
     super.initState();
@@ -29,7 +28,6 @@ class _CommunityPageState extends State<CommunityPage> {
         Scaffold(
           body: BlocConsumer<CommunityBloc, CommunityState>(
             listener: (context, state) {
-              infoDebugPrint('state.shouldRefresh: ${state.shouldRefresh}');
               if (state.shouldRefresh) {
                 context.read<CommunityBloc>().add(PostsInitialized());
               }
