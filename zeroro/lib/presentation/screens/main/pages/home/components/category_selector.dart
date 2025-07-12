@@ -42,7 +42,7 @@ class _CategorySelectorState extends State<CategorySelector>
     6: {'name': '장바구니 사용', 'mainIndex': 1},
 
     // mainIndex: 2
-    7: {'name': '이면지 활용', 'mainIndex': 2},
+    //유지보수를 위해 이면지 카테고리 삭제 시 나머지 인덱스 유지
     8: {'name': '전자영수증 발급 화면', 'mainIndex': 2},
     9: {'name': '사용하지 않는 플러그 뽑기', 'mainIndex': 2},
   };
