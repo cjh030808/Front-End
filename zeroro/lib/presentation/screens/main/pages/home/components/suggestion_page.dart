@@ -55,7 +55,7 @@ class _SuggestionPageState extends State<SuggestionPage>
           builder: (context) => CustomInfoDialog(
             title: '건의하기 안내',
             content:
-            '앱에서 불편한 점, 추가되었으면 하는 기능, 버그 제보 등을 자유롭게 작성해주세요!\n\n사진을 첨부하면 더 좋아요!',
+            '앱에서 불편한 점, 추가되었으면 하는 카테고리, 버그 제보 등을 자유롭게 작성해주세요!\n\n사진을 첨부하면 더 좋아요!',
             preferenceKey: 'showSuggestionDialog',
             onClose: (_) {},
           ),
@@ -238,7 +238,7 @@ class _SuggestionPageState extends State<SuggestionPage>
                     const Spacer(),
                     const InfoButton(
                       title: '건의하기 안내',
-                      content: '앱에서 불편한 점, 추가되었으면 하는 기능, 버그 제보 등을 자유롭게 작성해주세요!\n\n사진을 첨부하면 더 좋아요!',
+                      content: '앱에서 불편한 점, 추가되었으면 하는 카테고리, 버그 제보 등을 자유롭게 작성해주세요!\n\n사진을 첨부하면 더 좋아요!',
                       preferenceKey: 'showSuggestionDialog',
                     ),
                   ],
