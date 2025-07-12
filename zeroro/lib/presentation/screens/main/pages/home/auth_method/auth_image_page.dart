@@ -1,10 +1,15 @@
 import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:zeroro/core/theme/constant/app_color.dart';
 import '../../../cubit/fade_message_box.dart';
 import '../components/category_selector.dart';
 import '../components/suggestion_page.dart';
 import '../components/info_dialog.dart';
+
+import '../components/camera_picker.dart';
+import '../components/gallery_picker.dart';
 
 class AuthImagePage extends StatefulWidget {
   const AuthImagePage({super.key});
@@ -13,10 +18,12 @@ class AuthImagePage extends StatefulWidget {
   State<AuthImagePage> createState() => _AuthImagePageState();
 }
 
-class _AuthImagePageState extends State<AuthImagePage>
-    with SingleTickerProviderStateMixin {
+class _AuthImagePageState extends State<AuthImagePage> with SingleTickerProviderStateMixin {
   final TextEditingController _contentController = TextEditingController();
   final List<String> _selectedImages = [];
+
+  final CameraPicker _cameraPicker = CameraPicker();
+  final GalleryPicker _galleryPicker = GalleryPicker();
 
   bool _isAnalyzing = false;
   String? _warningMessage;
@@ -72,10 +79,18 @@ class _AuthImagePageState extends State<AuthImagePage>
     );
   }
 
-  void _addImage() {
-    setState(() {
-      _selectedImages.add('assets/images/mock_image.jpg');
-    });
+  Future<void> _pickFromCamera() async {
+    final file = await _cameraPicker.pickImageFromCamera();
+    if (file != null) {
+      setState(() => _selectedImages.add(file.path));
+    }
+  }
+
+  Future<void> _pickFromGallery() async {
+    final file = await _galleryPicker.pickImageFromGallery();
+    if (file != null) {
+      setState(() => _selectedImages.add(file.path));
+    }
   }
 
   void _removeImage(int index) {
@@ -210,7 +225,10 @@ class _AuthImagePageState extends State<AuthImagePage>
                       if (_selectedImages.isNotEmpty) ...[
                         const Text(
                           '첨부된 이미지',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         const SizedBox(height: 12),
                         SizedBox(
@@ -224,8 +242,8 @@ class _AuthImagePageState extends State<AuthImagePage>
                                 children: [
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(8),
-                                    child: Image.asset(
-                                      _selectedImages[index],
+                                    child: Image.file(
+                                      File(_selectedImages[index]),
                                       width: 120,
                                       height: 120,
                                       fit: BoxFit.cover,
@@ -242,7 +260,11 @@ class _AuthImagePageState extends State<AuthImagePage>
                                           color: Colors.black54,
                                           shape: BoxShape.circle,
                                         ),
-                                        child: const Icon(Icons.close, color: Colors.white, size: 16),
+                                        child: const Icon(
+                                          Icons.close,
+                                          color: Colors.white,
+                                          size: 16,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -266,7 +288,11 @@ class _AuthImagePageState extends State<AuthImagePage>
                 child: Row(
                   children: [
                     IconButton(
-                      onPressed: _addImage,
+                      onPressed: _pickFromCamera,
+                      icon: const Icon(Icons.camera_alt_outlined),
+                    ),
+                    IconButton(
+                      onPressed: _pickFromGallery,
                       icon: const Icon(Icons.photo_library_outlined),
                     ),
                     const Spacer(),
@@ -281,14 +307,19 @@ class _AuthImagePageState extends State<AuthImagePage>
               left: 16,
               right: 16,
               child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                padding:
+                const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                 decoration: BoxDecoration(
                   color: AppColors.positive,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: const Text(
                   'AI가 분석 중입니다...',
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
                   textAlign: TextAlign.center,
                 ),
               ),
