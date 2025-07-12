@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:zeroro/core/theme/constant/app_color.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../cubit/fade_message_box.dart';
 import '../components/info_dialog.dart';
+import '../components/info_button.dart';
 
 class AuthQuizPage extends StatefulWidget {
   const AuthQuizPage({super.key});
@@ -30,45 +32,35 @@ class _AuthQuizPageState extends State<AuthQuizPage>
   static const Duration messageVisibleDuration = Duration(milliseconds: 800);
   static const Duration fadeDuration = Duration(milliseconds: 400);
 
-  bool _dialogShown = false;
-
   @override
   void initState() {
     super.initState();
 
     _fadeController = AnimationController(vsync: this, duration: fadeDuration);
-    _fadeAnimation = Tween<double>(
-      begin: 1.0,
-      end: 0.0,
-    ).animate(_fadeController);
+    _fadeAnimation = Tween<double>(begin: 1.0, end: 0.0).animate(_fadeController);
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _showIntroDialog();
-    });
-
+    _maybeShowIntroDialog();
     _loadQuestion(_currentQuestionIndex);
   }
 
-  void _showIntroDialog() {
-    if (_dialogShown) return;
-    _dialogShown = true;
+  Future<void> _maybeShowIntroDialog() async {
+    final prefs = await SharedPreferences.getInstance();
+    final shouldShow = !(prefs.getBool('showAuthQuizDialog') ?? false);
 
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => CustomInfoDialog(
-        title: '퀴즈 인증이란?',
-        content: '제시된 지문이 친환경 행동인지 판단하고 OX로 선택해주세요.\n\n\n\n\n\n\n\n\n\n\n\n'
-            '지문 길이 테스트',
-        onClose: (dontShowAgain) {
-          if (dontShowAgain) {
-            // 서버에 다시보지 않기 상태 저장 예정
-          } else {
-            // 로컬 상태 저장만
-          }
-        },
-      ),
-    );
+    if (shouldShow) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) => CustomInfoDialog(
+            title: '퀴즈 인증이란?',
+            content: '제시된 지문이 친환경 행동인지 판단하고 OX로 선택해주세요.\n\n정확히 판단할수록 더 많은 포인트를 받을 수 있어요!',
+            preferenceKey: 'showAuthQuizDialog',
+            onClose: (_) {},
+          ),
+        );
+      });
+    }
   }
 
   @override
@@ -88,7 +80,6 @@ class _AuthQuizPageState extends State<AuthQuizPage>
     }
 
     final questionData = _questions[index];
-
     setState(() {
       _questionText = questionData['question'] as String;
       _correctAnswer = questionData['answer'] as bool;
@@ -99,7 +90,7 @@ class _AuthQuizPageState extends State<AuthQuizPage>
   void _handleAnswer(bool userAnswer) {
     if (_correctAnswer == null) return;
 
-    bool isCorrect = (userAnswer == _correctAnswer);
+    final isCorrect = userAnswer == _correctAnswer;
 
     setState(() {
       _resultMessage = isCorrect ? '정답!' : '땡!';
@@ -113,9 +104,7 @@ class _AuthQuizPageState extends State<AuthQuizPage>
       _fadeController.forward();
       Timer(fadeDuration, () {
         if (mounted) {
-          setState(() {
-            _resultMessage = null;
-          });
+          setState(() => _resultMessage = null);
           _nextQuestion();
         }
       });
@@ -124,14 +113,10 @@ class _AuthQuizPageState extends State<AuthQuizPage>
 
   void _nextQuestion() {
     if (_currentQuestionIndex + 1 < _questions.length) {
-      setState(() {
-        _currentQuestionIndex++;
-      });
+      setState(() => _currentQuestionIndex++);
       _loadQuestion(_currentQuestionIndex);
     } else {
-      setState(() {
-        _currentQuestionIndex = 0;
-      });
+      setState(() => _currentQuestionIndex = 0);
       _loadQuestion(_currentQuestionIndex);
     }
   }
@@ -193,10 +178,7 @@ class _AuthQuizPageState extends State<AuthQuizPage>
               Expanded(
                 child: Center(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 24,
-                      vertical: 16,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                     child: Card(
                       elevation: 6,
                       shape: RoundedRectangleBorder(
@@ -261,6 +243,24 @@ class _AuthQuizPageState extends State<AuthQuizPage>
               ),
             ),
         ],
+      ),
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border(top: BorderSide(color: Colors.grey.shade300)),
+        ),
+        child: Row(
+          children: const [
+            Spacer(),
+            InfoButton(
+              title: '퀴즈 인증이란?',
+              content:
+              '제시된 지문이 친환경 행동인지 판단하고 OX로 선택해주세요.\n\n정확히 판단할수록 더 많은 포인트를 받을 수 있어요!',
+              preferenceKey: 'showAuthQuizDialog',
+            ),
+          ],
+        ),
       ),
     );
   }

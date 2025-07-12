@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomInfoDialog extends StatefulWidget {
   final String title;
   final String content;
+  final String preferenceKey; // 설명문마다 키 다르게
   final ValueChanged<bool> onClose;
 
   const CustomInfoDialog({
     super.key,
     required this.title,
     required this.content,
+    required this.preferenceKey,
     required this.onClose,
   });
 
@@ -18,6 +21,24 @@ class CustomInfoDialog extends StatefulWidget {
 
 class _CustomInfoDialogState extends State<CustomInfoDialog> {
   bool _dontShowAgain = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPreference();
+  }
+
+  Future<void> _loadPreference() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _dontShowAgain = prefs.getBool(widget.preferenceKey) ?? false;
+    });
+  }
+
+  Future<void> _savePreference(bool value) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(widget.preferenceKey, value);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +53,7 @@ class _CustomInfoDialogState extends State<CustomInfoDialog> {
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start, // 왼쪽 정렬
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Center(
               child: Text(
@@ -47,10 +68,9 @@ class _CustomInfoDialogState extends State<CustomInfoDialog> {
             Text(
               widget.content,
               style: const TextStyle(fontSize: 16),
-              textAlign: TextAlign.left, // 설명문 왼쪽 정렬
+              textAlign: TextAlign.left,
             ),
             const SizedBox(height: 24),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -80,9 +100,10 @@ class _CustomInfoDialogState extends State<CustomInfoDialog> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    await _savePreference(_dontShowAgain);
                     widget.onClose(_dontShowAgain);
-                    Navigator.of(context).pop();
+                    if (mounted) Navigator.of(context).pop();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black87,

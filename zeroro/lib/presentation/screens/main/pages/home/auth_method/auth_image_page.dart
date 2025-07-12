@@ -2,11 +2,13 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zeroro/core/theme/constant/app_color.dart';
 import '../../../cubit/fade_message_box.dart';
 import '../components/category_selector.dart';
 import '../components/suggestion_page.dart';
 import '../components/info_dialog.dart';
+import '../components/info_button.dart';
 
 import '../components/camera_picker.dart';
 import '../components/gallery_picker.dart';
@@ -29,9 +31,6 @@ class _AuthImagePageState extends State<AuthImagePage> with SingleTickerProvider
   String? _warningMessage;
   String? _selectedSubCategory;
 
-  bool _dialogAlreadyShown = false;
-  bool _doNotShowAgain = false;
-
   Timer? _resultTimer;
   late AnimationController _fadeController;
   late Animation<double> _fadeAnimation;
@@ -45,12 +44,28 @@ class _AuthImagePageState extends State<AuthImagePage> with SingleTickerProvider
     _fadeController = AnimationController(vsync: this, duration: fadeDuration);
     _fadeAnimation = Tween<double>(begin: 1.0, end: 0.0).animate(_fadeController);
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!_doNotShowAgain && !_dialogAlreadyShown) {
-        _showInfoDialog();
-        _dialogAlreadyShown = true;
-      }
-    });
+    _maybeShowInfoDialog();
+  }
+
+  Future<void> _maybeShowInfoDialog() async {
+    final prefs = await SharedPreferences.getInstance();
+    final hasSeenDialog = prefs.getBool('showAuthImageDialog') ?? false;
+    if (!hasSeenDialog) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          barrierColor: Colors.black54,
+          builder: (_) => CustomInfoDialog(
+            title: '사진 인증이란?',
+            content:
+            '친환경 활동을 사진으로 증명하고 AI로 인증을 받는 기능입니다.\n\n사진과 설명을 함께 첨부하고\n카테고리를 선택하면 AI가 친환경 여부를 판단합니다.',
+            preferenceKey: 'showAuthImageDialog',
+            onClose: (_) {},
+          ),
+        );
+      });
+    }
   }
 
   @override
@@ -59,24 +74,6 @@ class _AuthImagePageState extends State<AuthImagePage> with SingleTickerProvider
     _resultTimer?.cancel();
     _fadeController.dispose();
     super.dispose();
-  }
-
-  void _showInfoDialog() {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      barrierColor: Colors.black54,
-      builder: (_) => CustomInfoDialog(
-        title: '사진 인증이란?',
-        content:
-        '친환경 활동을 사진으로 증명하고 AI로 인증을 받는 기능입니다.\n\n사진과 설명을 함께 첨부하고\n카테고리를 선택하면 AI가 친환경 여부를 판단합니다.',
-        onClose: (dontShowAgain) {
-          setState(() {
-            _doNotShowAgain = dontShowAgain;
-          });
-        },
-      ),
-    );
   }
 
   Future<void> _pickFromCamera() async {
@@ -296,6 +293,13 @@ class _AuthImagePageState extends State<AuthImagePage> with SingleTickerProvider
                       icon: const Icon(Icons.photo_library_outlined),
                     ),
                     const Spacer(),
+                    // 설명 버튼 추가: 유지보수용 공통 컴포넌트
+                    const InfoButton(
+                      title: '사진 인증이란?',
+                      content:
+                      '친환경 활동을 사진으로 증명하고 AI로 인증을 받는 기능입니다.\n\n사진과 설명을 함께 첨부하고\n카테고리를 선택하면 AI가 친환경 여부를 판단합니다.',
+                      preferenceKey: 'showAuthImageDialog',
+                    ),
                   ],
                 ),
               ),
@@ -307,8 +311,7 @@ class _AuthImagePageState extends State<AuthImagePage> with SingleTickerProvider
               left: 16,
               right: 16,
               child: Container(
-                padding:
-                const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                 decoration: BoxDecoration(
                   color: AppColors.positive,
                   borderRadius: BorderRadius.circular(8),

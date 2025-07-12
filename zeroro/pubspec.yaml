@@ -29,7 +29,8 @@ dependencies:
   json_annotation: ^4.9.0
   dio: ^5.8.0+1
   injectable:  
-  get_it: 
+  get_it:
+  shared_preferences: ^2.5.3
 
   #feature
   go_router: ^14.1.3
