@@ -19,6 +19,7 @@ dependencies:
   rive: ^0.13.20
   flutter_speed_dial: ^7.0.0
   google_fonts: ^6.2.1
+  flutter_3d_controller: ^2.2.0
 
   #architecture
   flutter_bloc: ^9.1.1
@@ -28,7 +29,7 @@ dependencies:
   logger: ^2.4.0
   json_annotation: ^4.9.0
   dio: ^5.8.0+1
-  injectable:  
+  injectable:
   get_it:
   shared_preferences: ^2.5.3
 
@@ -50,7 +51,7 @@ dev_dependencies:
   retrofit_generator: ">=8.0.0 <10.0.0"
   build_runner: ^2.3.3
   json_serializable: ^6.8.0
-  injectable_generator:  
+  injectable_generator:
 
 flutter:
   uses-material-design: true
@@ -59,6 +60,7 @@ flutter:
     - .env
     - assets/images/
     - assets/animation/zeroro4.riv
+    - assets/zeroro/
   # fonts:
   #   - family: Schyler
   #     fonts:
